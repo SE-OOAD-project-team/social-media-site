@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run start -w ./client",
+    "start-client": "NODE_ENV=development npm run start -w ./client",
+    "start-server": "NODE_ENV=development npm run start -w ./server",
+    "build-serve": "NODE_ENV=production npm run build -w ./client && NODE_ENV=production npm run serve -w ./server -- ../client/build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
