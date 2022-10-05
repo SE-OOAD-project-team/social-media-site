@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start-client": "cross-env NODE_ENV=development npm run start -w ./client",
+    "start-client": "npm run start -w ./client",
     "start-server": "cross-env NODE_ENV=development npm run start -w ./server",
-    "build-serve": "cross-env NODE_ENV=production npm run build -w ./client && cross-env NODE_ENV=production npm run serve -w ./server -- ../client/build",
+    "build": "npm run build -w ./client",
+    "serve": "cross-env NODE_ENV=production npm run serve -w ./server -- ../client/build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
