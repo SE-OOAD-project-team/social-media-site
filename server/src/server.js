@@ -3,6 +3,8 @@ import path from 'path';
 import cors from 'cors';
 import mongoose from 'mongoose';
 
+import api_router from './api/api.js';
+
 import dotenv from 'dotenv';
 
 // set env variables (PORT, MONGO_URI, ...) from file
@@ -32,6 +34,8 @@ if (process.argv[2]) {
     app.use(express.static(process.argv[2]));
     app.get('/*', (req, res) => res.sendFile(indexPath));
 }
+
+app.use('/api', api_router);
 
 const port = parseInt(process.env.PORT);
 const server = app.listen(port, () =>
