@@ -5,6 +5,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
 
+console.log('Shifaan');
+
 const port = parseInt(process.env.PORT);
 console.log(`NODE_ENV = ${process.env.NODE_ENV} Port = ${port}`);
 
