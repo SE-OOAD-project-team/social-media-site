@@ -11,12 +11,12 @@ router.post('/login', login);
 router.post('/signup', signup);
 
 router.get('/xyz', login_required, (req, res) => {
-    console.log({username: res.locals.username});
+    console.log('Token:', res.locals.token_data);
     res.send({ status: 'Success', data: 'Login required, Valid Token' });
 });
 
 router.get('/abc', (req, res) => {
-    console.log({username: res.locals.username});
+    console.log('Token:', res.locals.token_data);
     res.send({ status: 'Success', data: 'Login optional' });
 });
 

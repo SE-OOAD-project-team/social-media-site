@@ -13,12 +13,14 @@ const verify_token = (req, res, next) => {
     res.locals.token_data = null;
 
     try {
-        const token = req.headers['authorization'].split(' ')[1];
-        const data = jwt.verify(token, process.env.TOKEN_KEY);
+        if (typeof req.headers['authorization'] === 'string') {
+            const token = req.headers['authorization'].split(' ')[1];
+            const data = jwt.verify(token, process.env.TOKEN_KEY);
 
-        res.locals.token_data = data;
+            res.locals.token_data = data;
+        }
     } catch (error) {
-        console.log(error);
+        console.log('Invalid Token:', error.name);
     }
 
     next();
@@ -34,17 +36,17 @@ const verify_token = (req, res, next) => {
  */
 const login_required = (req, res, next) => {
     if (res.locals.token_data === null) {
-        next()
-    } else {
         res.status(401).send({ status: 'Failed', reason: 'Invalid token' });
+    } else {
+        next();
     }
-}
+};
 
 /**
  * Middleware that verifies username and password
- * 
+ *
  * Sends a token if verified
- * 
+ *
  * Sends response with error if token is not recieved or is invalid
  */
 const login = (req, res) => {
@@ -70,9 +72,9 @@ const login = (req, res) => {
 
 /**
  * Middleware to create new user
- * 
+ *
  * Sends response with confirmation if user created
- * 
+ *
  * Sends response with error if user could not be created
  */
 const signup = (req, res) => {
@@ -88,6 +90,6 @@ const signup = (req, res) => {
             reason: 'Could not create user',
         });
     }
-}
+};
 
 export { login, signup, verify_token, login_required };
