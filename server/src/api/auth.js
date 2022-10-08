@@ -3,27 +3,42 @@ import jwt from 'jsonwebtoken';
 import { create_user, verify_password } from '../database/auth.js';
 
 /**
- * Middleware to verify user token
- * 
- * Sets res.locals.username if token is valid
- * 
- * Sends response with error if token is not recieved or is invalid
+ * Middleware to verify user token and set res.locals.token_data if token is valid
  * @example
- * app.get('/route_where_user_needs_to_be_logged_in', verify_token, () => {...})
+ * app.use(verify_token);
+ * @example
+ * app.get('/route', verify_token, () => {...});
  */
 const verify_token = (req, res, next) => {
+    res.locals.token_data = null;
+
     try {
         const token = req.headers['authorization'].split(' ')[1];
         const data = jwt.verify(token, process.env.TOKEN_KEY);
 
-        res.locals.username = data.username;
-
-        next();
+        res.locals.token_data = data;
     } catch (error) {
         console.log(error);
+    }
+
+    next();
+};
+
+/**
+ * Middleware which responds with error when user is not logged in
+ * @example
+ * app.get('/route_where_login_is_required', verify_token, login_required, () => {...});
+ * @example
+ * app.use(verify_token);
+ * app.get('/route_where_login_is_required', login_required, () => {...});
+ */
+const login_required = (req, res, next) => {
+    if (res.locals.token_data === null) {
+        next()
+    } else {
         res.status(401).send({ status: 'Failed', reason: 'Invalid token' });
     }
-};
+}
 
 /**
  * Middleware that verifies username and password
@@ -65,7 +80,7 @@ const signup = (req, res) => {
     const password = req.body.password;
 
     const result = create_user(username, password);
-    if (result.status == 'Success') {
+    if (result.status === 'Success') {
         res.send({ status: 'Success' });
     } else {
         res.status(400).send({
@@ -75,4 +90,4 @@ const signup = (req, res) => {
     }
 }
 
-export { login, signup, verify_token };
+export { login, signup, verify_token, login_required };

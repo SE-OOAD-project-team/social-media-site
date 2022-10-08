@@ -5,8 +5,8 @@ const users = [{ username: 'abc', password: 'abcdef' }];
 
 const verify_password = (username, password) => {
     for (let user of users) {
-        if (username == user.username) {
-            return password == user.password;
+        if (username === user.username) {
+            return password === user.password;
         }
     }
     return false;
@@ -14,7 +14,7 @@ const verify_password = (username, password) => {
 
 const create_user = (username, password) => {
     for (let user of users) {
-        if (username == user.username) {
+        if (username === user.username) {
             return { status: 'Failed', reason: 'User already exists' };
         }
     }
