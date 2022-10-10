@@ -15,7 +15,7 @@
 
     width: clamp(60vmin, 400px, 100vmin);
     box-sizing: border-box;
-    /* padding: 10px; */
+    padding: 20px;
     /* border: 1px black solid; */
     /* border-radius: 10px; */
     /* box-shadow: 0 0 10px #787878; */
@@ -36,10 +36,10 @@
 .LoginInput {
     width: 100%;
     padding: 10px 20px;
-    /* border: 1px #787878 solid; */
+    border: 1px #808080 solid;
     /* border-radius: 5px; */
     margin: 10px 0;
-    box-shadow: 0 0 2px #808080;
+    /* box-shadow: 0 0 2px #808080; */
     font-size: 1.05rem;
 }
 
@@ -47,6 +47,7 @@
     cursor: pointer;
     padding: 10px 20px;
     margin: 10px 0;
-    box-shadow: 0 0 2px #808080;
+    background: #e0e0e0;
+    /* box-shadow: 0 0 2px #808080; */
     font-size: 1.05rem;
 }
