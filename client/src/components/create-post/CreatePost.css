@@ -1,0 +1,28 @@
+#create-post-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid black;
+}
+
+#post-btn-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    border: 1px solid saddlebrown;
+    width: 60%;
+}
+
+textarea {
+    outline: none;
+    resize: none;
+    overflow: auto;
+    height: 100px;
+}
+
+.create-post-input {
+    width: 60%;
+    padding: 10px;
+    margin: 5px;
+    outline: none;
+}
