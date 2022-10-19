@@ -15,15 +15,22 @@
 
     width: clamp(60vmin, 400px, 100vmin);
     box-sizing: border-box;
-    padding: 20px;
-    /* border: 1px black solid; */
+    padding: 30px;
+     /*border: 1px black solid;*/
     /* border-radius: 10px; */
-    /* box-shadow: 0 0 10px #787878; */
+     box-shadow: 0 0 10px #787878; 
+}
+
+.Login h1 {
+    margin: 10px 0;
 }
 
 .LoginForm {
     width: 100%;
-    margin-top: 10px;
+}
+
+.LoginField {
+    margin: 10px 0 0 0;
 }
 
 .LoginRow {
@@ -38,16 +45,20 @@
     padding: 10px 20px;
     border: 1px #808080 solid;
     /* border-radius: 5px; */
-    margin: 10px 0;
     /* box-shadow: 0 0 2px #808080; */
-    font-size: 1.05rem;
+    font-size: medium;
 }
 
 .LoginButton {
     cursor: pointer;
     padding: 10px 20px;
-    margin: 10px 0;
     background: #e0e0e0;
     /* box-shadow: 0 0 2px #808080; */
-    font-size: 1.05rem;
+    font-size: medium;
+}
+
+.LoginInvalid {
+    min-height: 12px;
+    color:  red;
+    font-size: x-small;
 }
