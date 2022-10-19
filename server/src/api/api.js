@@ -10,6 +10,7 @@ router.use(verify_token);
 router.post('/login', login);
 router.post('/signup', signup);
 
+// Routes for testing, will be removed later
 router.get('/xyz', login_required, (req, res) => {
     console.log('Token:', res.locals.token_data);
     res.send({ status: 'Success', data: 'Login required, Valid Token' });
