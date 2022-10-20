@@ -1,15 +1,16 @@
 import React from 'react';
 
+import { login } from '../api/api.js';
+
 import { Link } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
-import './Login.css';
+import style from './Login.module.css';
 
 const Login = () => {
     return (
-        <div className="LoginContainer">
-            <div className="Login">
-                <h1>Login</h1>
+        <div className={style.Container}>
+            <div className={style.Login}>
                 <Formik
                     initialValues={{ username: '', password: '' }}
                     validate={(values) => {
@@ -24,41 +25,55 @@ const Login = () => {
 
                         return errors;
                     }}
-                    onSubmit={(values, { setSubmitting }) => {
-                        setTimeout(() => {
-                            console.log(values);
-                            setSubmitting(false);
-                        }, 400);
+                    onSubmit={async (
+                        values,
+                        { setSubmitting, setStatus, setFieldValue }
+                    ) => {
+                        if (await login(values.username, values.password)) {
+                            setStatus('Success');
+                        } else {
+                            setStatus('Invalid Username or password');
+                            setFieldValue('password', '', false);
+                        }
+                        setSubmitting(false);
                     }}
                 >
-                    {({ isSubmitting }) => (
-                        <Form className="LoginForm">
-                            <div className="LoginField">
+                    {({ isSubmitting, status }) => (
+                        <Form className={style.Form}>
+                            <h1>Login</h1>
+                            <div className={`${style.Error} ${style.Small}`}>
+                                {status}
+                            </div>
+                            <div className={style.Field}>
                                 <Field
                                     name="username"
-                                    className="LoginInput"
+                                    className={style.Input}
                                     type="text"
                                     placeholder="Username"
                                 />
-                                <div className="LoginInvalid">
+                                <div
+                                    className={`${style.Error} ${style.XSmall}`}
+                                >
                                     <ErrorMessage name="username" />
                                 </div>
                             </div>
-                            <div className="LoginField">
+                            <div className={style.Field}>
                                 <Field
                                     name="password"
-                                    className="LoginInput"
+                                    className={style.Input}
                                     type="password"
                                     placeholder="Password"
                                 />
-                                <div className="LoginInvalid">
+                                <div
+                                    className={`${style.Error} ${style.XSmall}`}
+                                >
                                     <ErrorMessage name="password" />
                                 </div>
                             </div>
-                            <div className="LoginRow LoginField">
+                            <div className={`${style.Row} ${style.Field}`}>
                                 <button
                                     type="submit"
-                                    className="LoginButton"
+                                    className={style.Button}
                                     disabled={isSubmitting}
                                 >
                                     Submit
