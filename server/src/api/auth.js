@@ -25,7 +25,7 @@ const verify_token = (req, res, next) => {
             res.locals.token_data = data;
         }
     } catch (error) {
-        console.log('Invalid Token:', error.name);
+        // console.log('Invalid Token:', error.name);
     }
 
     next();
@@ -65,7 +65,7 @@ const login = (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
 
-    console.log({ username, password });
+    // console.log({ username, password });
 
     if (verify_password(username, password)) {
         const token = jwt.sign(
