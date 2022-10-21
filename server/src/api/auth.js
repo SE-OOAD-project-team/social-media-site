@@ -1,3 +1,4 @@
+import express from 'express';
 import jwt from 'jsonwebtoken';
 
 import { create_user, verify_password } from '../database/auth.js';
@@ -8,6 +9,10 @@ import { create_user, verify_password } from '../database/auth.js';
  * app.use(verify_token);
  * @example
  * app.get('/route', verify_token, () => {...});
+ *
+ * @param {express.Request} req 
+ * @param {express.Response} res 
+ * @param {express.NextFunction} next
  */
 const verify_token = (req, res, next) => {
     res.locals.token_data = null;
@@ -33,6 +38,10 @@ const verify_token = (req, res, next) => {
  * @example
  * app.use(verify_token);
  * app.get('/route_where_login_is_required', login_required, () => {...});
+ *
+ * @param {express.Request} req 
+ * @param {express.Response} res 
+ * @param {express.NextFunction} next
  */
 const login_required = (req, res, next) => {
     if (res.locals.token_data === null) {
@@ -48,6 +57,9 @@ const login_required = (req, res, next) => {
  * Sends a token if verified
  *
  * Sends response with error if token is not recieved or is invalid
+ * 
+ * @param {express.Request} req 
+ * @param {express.Response} res 
  */
 const login = (req, res) => {
     const username = req.body.username;
@@ -77,6 +89,9 @@ const login = (req, res) => {
  * Sends response with confirmation if user created
  *
  * Sends response with error if user could not be created
+ * 
+ * @param {express.Request} req 
+ * @param {express.Response} res 
  */
 const signup = (req, res) => {
     const username = req.body.username;
