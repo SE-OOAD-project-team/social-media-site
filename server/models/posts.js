@@ -1,12 +1,11 @@
 import mongoose from "mongoose";
 
+
+
+//schema for the database
 const PostSchema = new mongoose.Schema({  
     
-post:{
 
-    image:{
-        type:String
-    },
 
     likes:[{
         names:{
@@ -43,6 +42,6 @@ post:{
        }]
     }
 
-})
+)
 
 export default mongoose.model("posts",PostSchema);
