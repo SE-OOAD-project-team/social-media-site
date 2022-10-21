@@ -29,11 +29,16 @@ const Login = () => {
                         values,
                         { setSubmitting, setStatus, setFieldValue }
                     ) => {
-                        if (await login(values.username, values.password)) {
-                            setStatus('Success');
-                        } else {
-                            setStatus('Invalid Username or password');
-                            setFieldValue('password', '', false);
+                        try {
+                            if (await login(values.username, values.password)) {
+                                setStatus('Success');
+                            } else {
+                                setStatus('Invalid Username or password');
+                                setFieldValue('password', '', false);
+                            }
+                        } catch (e) {
+                            setStatus(`Error: ${e.message}`);
+                            console.log(e);
                         }
                         setSubmitting(false);
                     }}
