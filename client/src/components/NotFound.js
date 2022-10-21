@@ -1,15 +1,15 @@
 import React from 'react';
 
-import style from './NotFound.module.css';
+import './NotFound.css';
 import image from './NotFound.svg';
 
 import { Link } from 'react-router-dom';
 
 const NotFound = () => {
     return (
-        <div className={style.NotFound}>
-            <img className={style.NotFoundImage} src={image} alt="" />
-            <div className={style.NotFoundText}>
+        <div className="NotFound">
+            <img className="NotFoundImage" src={image} alt="" />
+            <div className="NotFoundText">
                 <p>Could not find this page</p>
                 <Link to="/">
                     <p>Go to Home page</p>
