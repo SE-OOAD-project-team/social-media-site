@@ -7,7 +7,12 @@ import ReactDOM from 'react-dom/client';
 
 import AppRouter from './AppRouter';
 
-console.log(`API uri = ${process.env.REACT_APP_API_URI}`);
+console.log(
+    [
+        `NODE_ENV=${process.env.NODE_ENV}`,
+        `API_URI=${process.env.REACT_APP_API_URI}`,
+    ].join('\n')
+);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
