@@ -2,11 +2,6 @@
     margin: 0;
     border: 0;
     padding: 0;
-    box-sizing: inherit;
-}
-
-*:before, *:after {
-    box-sizing: inherit;
 }
 
 body {
