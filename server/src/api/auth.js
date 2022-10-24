@@ -1,7 +1,7 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
 
-import { create_user, verify_password } from '../database/auth.js';
+import { create_user, verify_password } from '../lib/auth.js';
 
 /**
  * Middleware to verify user token and set res.locals.token_data if token is valid
