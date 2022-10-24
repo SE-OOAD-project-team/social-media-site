@@ -2,13 +2,9 @@ import mongoose from 'mongoose';
 
 import User from '../models/user.js';
 
-const verify_password = (username, password) => {
-    // for (let user of users) {
-    //     if (username === user.username) {
-    //         return password === user.password;
-    //     }
-    // }
-    return false;
+const verify_password = async (username, password) => {
+    const user = await User.findOne({ username });
+    return user != null && user.passwordHash === password;
 };
 
 const create_user = async (username, password) => {

@@ -61,13 +61,13 @@ const login_required = (req, res, next) => {
  * @param {express.Request} req
  * @param {express.Response} res
  */
-const login = (req, res) => {
+const login = async (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
 
     console.log('login', { username, password });
 
-    if (verify_password(username, password)) {
+    if (await verify_password(username, password)) {
         const token = jwt.sign(
             {
                 username,
