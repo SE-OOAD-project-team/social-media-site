@@ -52,12 +52,9 @@ const login_required = (req, res, next) => {
 };
 
 /**
- * Middleware that verifies username and password
- *
- * Sends a token if verified
- *
+ * Middleware that verifies username and password \
+ * Sends a token if verified \
  * Sends response with error if token is not recieved or is invalid
- *
  * @param {express.Request} req
  * @param {express.Response} res
  */
@@ -84,12 +81,9 @@ const login = async (req, res) => {
 };
 
 /**
- * Middleware to create new user
- *
- * Sends response with confirmation if user created
- *
+ * Middleware to create new user \
+ * Sends response with confirmation if user created \
  * Sends response with error if user could not be created
- *
  * @param {express.Request} req
  * @param {express.Response} res
  */
