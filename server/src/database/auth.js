@@ -20,7 +20,7 @@ const create_user = async (username, password) => {
     if ((await User.findOne({ username })) != null) {
         throw new Error('User already exists');
     } else {
-        const salt = crypto.randomBytes(512).toString();
+        const salt = crypto.randomBytes(512).toString('base64');
         const user = new User({ username, passwordSalt: salt, passwordHash: hashPassword(password, salt) });
         await user.save();
         // console.log(user);
