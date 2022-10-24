@@ -1,26 +1,23 @@
-// import mongoose from 'mongoose';
+import mongoose from 'mongoose';
 
-// Using array instead of database, need to integrate with mongodb later
-const users = [{ username: 'abc', password: 'abcdef' }];
+import User from '../models/user.js';
 
 const verify_password = (username, password) => {
-    for (let user of users) {
-        if (username === user.username) {
-            return password === user.password;
-        }
-    }
+    // for (let user of users) {
+    //     if (username === user.username) {
+    //         return password === user.password;
+    //     }
+    // }
     return false;
 };
 
-const create_user = (username, password) => {
-    for (let user of users) {
-        if (username === user.username) {
-            return { status: 'Failed', reason: 'User already exists' };
-        }
+const create_user = async (username, password) => {
+    if ((await User.findOne({ username })) != null) {
+        throw new Error('User already exists');
+    } else {
+        const user = new User({ username, passwordHash: password });
+        await user.save();
     }
-
-    users.push({ username, password });
-    return { status: 'Success' };
 };
 
 export { verify_password, create_user };
