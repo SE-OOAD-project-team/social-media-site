@@ -8,7 +8,6 @@ import crypto from 'crypto';
  * Hashes the password using sha256
  * @param {string} password 
  * @param {base64string} salt 
- * @returns {base64string} hash digest
  */
 const hashPassword = (password, salt) => {
     const hash = crypto.createHash('sha256');
@@ -21,7 +20,6 @@ const hashPassword = (password, salt) => {
  * Verifies password
  * @param {string} username 
  * @param {string} password 
- * @returns {boolean} true if password is verifies, false otherwise
  */
 const verify_password = async (username, password) => {
     const user = await User.findOne({ username });
