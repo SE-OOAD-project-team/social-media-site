@@ -2,7 +2,6 @@ import express from 'express';
 import path from 'path';
 import cors from 'cors';
 import mongoose from 'mongoose';
-import pageRoute from "../Routes/POSTS.js"
 
 import api_router from './api/api.js';
 
@@ -21,21 +20,13 @@ console.log(
 
 const app = express();
 
-//middlewares
 app.use(cors());
-app.use(express.json())
 
 mongoose.connect(process.env.MONGO_URI);
-mongoose.connection.on("connected", ()=>{
-    console.log("connected")
-})
 
-
-mongoose.connection.on('error', err => console.log(err));
-
-mongoose.connection.on("disconnected", ()=>{
-    console.log("disconnected")
-}) 
+mongoose.connection.on('connected', () => console.log('mongoose connected'));
+mongoose.connection.on('error', (err) => console.log('mongoose error:', err.message));
+mongoose.connection.on('disconnected', () => console.log('mongoose disconnected'));
 
 // if a path is specified in args, serve index.html from there
 if (process.argv[2]) {
@@ -46,9 +37,6 @@ if (process.argv[2]) {
     app.get('/*', (req, res) => res.sendFile(indexPath));
 }
 
-
-//middleware
-app.use("/", pageRoute)
 app.use('/api', api_router);
 
 const port = parseInt(process.env.PORT);
