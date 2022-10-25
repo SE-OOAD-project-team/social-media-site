@@ -1,13 +1,24 @@
 import React from 'react';
+import {
+    BrowserRouter as Router,
+    Routes,
+    Route, 
+  } from "react-router-dom";
+  import userPage from './userPage/userPage';
 
 import './App.css';
 
 const App = () => {
     return (
         <div className="App">
-            <h1>Social Media Site</h1>
-        </div>
-    );
+           <Router>
+            <Routes>
+              <Route path="/user" element = {<userPage/>}/>
+             
+            </Routes>
+           </Router>
+           </div>
+          );
 }
 
 export default App;

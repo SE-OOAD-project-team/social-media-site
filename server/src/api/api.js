@@ -1,6 +1,7 @@
 import express from 'express';
 
 import { login, signup, verify_token, login_required } from './auth.js';
+import posts_router from '../Routes/posts.js';
 
 const router = express.Router();
 
@@ -9,6 +10,8 @@ router.use(verify_token);
 
 router.post('/login', login);
 router.post('/signup', signup);
+
+router.use('/post', posts_router);
 
 // Routes for testing, will be removed later
 router.get('/xyz', login_required, (req, res) => {
