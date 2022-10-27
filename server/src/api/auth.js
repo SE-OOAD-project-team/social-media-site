@@ -73,7 +73,7 @@ const login = async (req, res) => {
             { expiresIn: '30d' }
         );
         // res.setHeader('Authorization', `Bearer ${token}`);
-        // res.send({ status: 'Success' });
+        // res.setHeader('Access-Control-Expose-Headers', 'Authorization');
         res.send({ status: 'Success', token });
     } else {
         res.status(401).send({ status: 'Failed' });
