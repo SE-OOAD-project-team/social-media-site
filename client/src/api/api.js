@@ -28,7 +28,18 @@ const login = async (username, password) => {
 
     console.log(res_json);
 
-    return res_json.status === 'Success';
+    if (res_json.status === 'Success') {
+        window.localStorage.setItem('username', username);
+        window.localStorage.setItem('token', res_json.token);
+        return true;
+    } else {
+        return false;
+    }
 };
 
-export { login };
+const logout = () => {
+    window.localStorage.removeItem('username');
+    window.localStorage.removeItem('token');
+}
+
+export { login, logout };

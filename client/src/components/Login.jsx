@@ -2,46 +2,53 @@ import React from 'react';
 
 import { login } from '../api/api.js';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 import style from './Login.module.css';
 
 const Login = () => {
+    const validate = (values) => {
+        const errors = {};
+        if (!values.username) {
+            errors.username = 'Required';
+        }
+
+        if (!values.password) {
+            errors.password = 'Required';
+        }
+        
+        return errors;
+    };
+    
+    const navigate = useNavigate();
+    
+    const on_submit = async (
+        values,
+        { setSubmitting, setStatus, setFieldValue }
+    ) => {
+        try {
+            if (await login(values.username, values.password)) {
+                setStatus('Success');
+                navigate(window.history.state != null ? -1 : '/');
+            } else {
+                setStatus('Invalid Username or password');
+                setFieldValue('password', '', false);
+            }
+        } catch (e) {
+            setStatus(`Error: ${e.message}`);
+            console.log(e);
+        }
+        setSubmitting(false);
+    };
+
     return (
         <div className={style.Container}>
             <div className={style.Login}>
                 <Formik
                     initialValues={{ username: '', password: '' }}
-                    validate={(values) => {
-                        const errors = {};
-                        if (!values.username) {
-                            errors.username = 'Required';
-                        }
-
-                        if (!values.password) {
-                            errors.password = 'Required';
-                        }
-
-                        return errors;
-                    }}
-                    onSubmit={async (
-                        values,
-                        { setSubmitting, setStatus, setFieldValue }
-                    ) => {
-                        try {
-                            if (await login(values.username, values.password)) {
-                                setStatus('Success');
-                            } else {
-                                setStatus('Invalid Username or password');
-                                setFieldValue('password', '', false);
-                            }
-                        } catch (e) {
-                            setStatus(`Error: ${e.message}`);
-                            console.log(e);
-                        }
-                        setSubmitting(false);
-                    }}
+                    validate={validate}
+                    onSubmit={on_submit}
                 >
                     {({ isSubmitting, status }) => (
                         <Form className={style.Form}>
