@@ -2,7 +2,7 @@ import express from 'express';
 
 import { login, signup, verify_token, login_required } from './auth.js';
 import posts_router from '../Routes/posts.js';
-import { get_profile } from './profile.js';
+import { get_profile, update_profile } from './profile.js';
 
 const router = express.Router();
 
@@ -15,6 +15,7 @@ router.post('/signup', signup);
 router.use('/post', posts_router);
 
 router.get('/profile/:username', get_profile);
+router.post('/profile/:username', login_required, update_profile);
 
 // Routes for testing, will be removed later
 router.get('/xyz', login_required, (req, res) => {

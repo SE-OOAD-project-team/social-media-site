@@ -6,6 +6,8 @@ const UserSchema = new Schema(
         username: { type: String, required: true, index: { unique: true } },
         passwordHash: { type: String, required: true },
         passwordSalt: { type: String, required: true },
+        displayName: String,
+        description: String
     }
 );
 
