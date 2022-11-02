@@ -7,7 +7,10 @@ const UserSchema = new Schema(
         passwordHash: { type: String, required: true },
         passwordSalt: { type: String, required: true },
         displayName: String,
-        description: String
+        description: String,
+        followers: Array,
+        following: Array,
+        posts: Array
     }
 );
 

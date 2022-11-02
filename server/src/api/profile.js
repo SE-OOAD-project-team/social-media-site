@@ -5,25 +5,34 @@ const get_profile = async (req, res) => {
 
     if (user != null) {
         console.log(`Get api/profile/${req.params.username}`);
-        res.send({ username: user.username, displayName: user.displayName, description: user.description });
+        res.send({
+            username: user.username,
+            displayName: user.displayName,
+            description: user.description,
+            followers: user.followers,
+            following: user.following,
+            posts: user.posts,
+        });
     } else {
         res.status(404).send({ status: 'Failed' });
     }
 };
 
 const update_profile = async (req, res) => {
-    if (req.params.username !== res.locals.token_data.username) {
-        res.status(401).send({ status: 'Failed', reason: 'Invalid token' });
-    } else {
-        const user = await User.findOne({ username: req.params.username });
+    const user = await User.findOne({
+        username: res.locals.token_data.username,
+    });
 
-        const updates = Object.assign({}, req.body.displayName ? { displayName: req.body.displayName } : null, req.body.description ? { description: req.body.description } : null);
-        console.log('Update', req.params.username, updates);
+    const updates = Object.assign(
+        {},
+        req.body.displayName ? { displayName: req.body.displayName } : null,
+        req.body.description ? { description: req.body.description } : null
+    );
+    console.log('Update', res.locals.token_data.username, updates);
 
-        await user.updateOne(updates);
+    await user.updateOne(updates);
 
-        res.send({ status: 'Success' });
-    }
-}
+    res.send({ status: 'Success' });
+};
 
 export { get_profile, update_profile };

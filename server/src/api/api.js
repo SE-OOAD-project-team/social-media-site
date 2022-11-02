@@ -15,7 +15,7 @@ router.post('/signup', signup);
 router.use('/post', posts_router);
 
 router.get('/profile/:username', get_profile);
-router.post('/profile/:username', login_required, update_profile);
+router.post('/profile', login_required, update_profile);
 
 // Routes for testing, will be removed later
 router.get('/xyz', login_required, (req, res) => {
