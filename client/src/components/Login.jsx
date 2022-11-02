@@ -28,15 +28,13 @@ const Login = () => {
         { setSubmitting, setStatus, setFieldValue }
     ) => {
         try {
-            if (await login(values.username, values.password)) {
-                setStatus('Success');
-                navigate(window.history.state != null ? -1 : '/');
-            } else {
-                setStatus('Invalid Username or password');
-                setFieldValue('password', '', false);
-            }
+            await login(values.username, values.password);
+            setStatus('Success');
+            navigate(window.history.state != null ? -1 : '/');
         } catch (e) {
+            // setStatus('Invalid Username or password');
             setStatus(`Error: ${e.message}`);
+            setFieldValue('password', '', false);
             console.log(e);
         }
         setSubmitting(false);
