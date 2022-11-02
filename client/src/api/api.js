@@ -31,9 +31,8 @@ const login = async (username, password) => {
     if (res_json.status === 'Success') {
         window.localStorage.setItem('username', username);
         window.localStorage.setItem('token', res_json.token);
-        return true;
     } else {
-        return false;
+        throw new Error(res_json.reason);
     }
 };
 

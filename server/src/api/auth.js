@@ -76,7 +76,7 @@ const login = async (req, res) => {
         // res.setHeader('Access-Control-Expose-Headers', 'Authorization');
         res.send({ status: 'Success', token });
     } else {
-        res.status(401).send({ status: 'Failed' });
+        res.status(401).send({ status: 'Failed', reason: 'Invalid username or password' });
     }
 };
 
