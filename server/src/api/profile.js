@@ -35,4 +35,56 @@ const update_profile = async (req, res) => {
     res.send({ status: 'Success' });
 };
 
-export { get_profile, update_profile };
+const follow = async (req, res) => {
+    const user = await User.findOne({
+        username: res.locals.token_data.username,
+    });
+    const user_to_follow = await User.findOne({
+        username: req.body.username,
+    });
+
+    console.log('follow', user?.username, user_to_follow?.username);
+
+    if (user == null || user_to_follow == null) {
+        res.status(400).send({
+            status: 'Failed',
+            reason: 'Invalid username',
+        });
+    } else {
+        user.following.addToSet(user_to_follow);
+        user_to_follow.followers.addToSet(user);
+
+        user.save();
+        user_to_follow.save();
+
+        res.send({ status: 'Success' });
+    }
+};
+
+const unfollow = async (req, res) => {
+    const user = await User.findOne({
+        username: res.locals.token_data.username,
+    });
+    const user_to_unfollow = await User.findOne({
+        username: req.body.username,
+    });
+
+    console.log('unfollow', user?.username, user_to_unfollow?.username);
+
+    if (user == null || user_to_unfollow == null) {
+        res.status(400).send({
+            status: 'Failed',
+            reason: 'Invalid username',
+        });
+    } else {
+        user.following.pull(user_to_unfollow);
+        user_to_unfollow.followers.pull(user);
+
+        user.save();
+        user_to_unfollow.save();
+
+        res.send({ status: 'Success' });
+    }
+};
+
+export { get_profile, update_profile, follow, unfollow };
