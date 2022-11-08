@@ -7,7 +7,7 @@
     justify-content: center;
 }
 
-.Login {
+.Box {
     width: clamp(60vmin, 400px, 100vmin);
     box-sizing: border-box;
     padding: 30px;
@@ -16,7 +16,7 @@
 }
 
 @media screen and (min-width: 500px) {
-    .Login {
+    .Box {
         border: 1px #808080 solid;
         border-radius: 10px;
         /* box-shadow: 0 0 10px #808080; */
