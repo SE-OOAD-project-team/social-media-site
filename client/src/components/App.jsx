@@ -10,7 +10,7 @@ const App = () => {
     const username = window.localStorage.getItem('username');
     const token = window.localStorage.getItem('token');
 
-    const [count, forceUpdate] = useReducer((x) => x + 1, 0);
+    const [, forceUpdate] = useReducer((x) => x + 1, 0);
 
     return (
         <div className="App">
@@ -24,7 +24,14 @@ const App = () => {
                         5
                     )}...`}</div>
                 ) : (
-                    <Link to="/login">Login</Link>
+                    <>
+                        <div>
+                            <Link to="/login">Login</Link>
+                        </div>
+                        <div>
+                            <Link to="/signup">Signup</Link>
+                        </div>
+                    </>
                 )}
             </div>
             <button
