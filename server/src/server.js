@@ -1,6 +1,7 @@
 import express from 'express';
 import path from 'path';
 import cors from 'cors';
+import morgan from 'morgan';
 import mongoose from 'mongoose';
 
 import api_router from './api/api.js';
@@ -21,6 +22,7 @@ console.log(
 const app = express();
 
 app.use(cors());
+app.use(morgan('dev'));
 
 mongoose.connect(process.env.MONGO_URI);
 

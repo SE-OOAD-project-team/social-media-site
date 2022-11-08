@@ -1,7 +1,7 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
 
-import { create_user, verify_password } from '../lib/auth.js';
+import { create_user, verify_password, change_password } from '../lib/auth.js';
 
 /**
  * Middleware to verify user token and set res.locals.token_data if token is valid
@@ -25,7 +25,7 @@ const verify_token = (req, res, next) => {
             res.locals.token_data = data;
         }
     } catch (error) {
-        console.log('Invalid Token:', error.name);
+        // console.log('Invalid Token:', error.name);
     }
 
     next();
@@ -62,7 +62,7 @@ const login = async (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
 
-    console.log('login', { username, password });
+    // console.log('login', { username, password });
 
     if (await verify_password(username, password)) {
         const token = jwt.sign(
@@ -91,7 +91,7 @@ const signup = async (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
 
-    console.log('signup', { username, password });
+    // console.log('signup', { username, password });
 
     try {
         await create_user(username, password);
@@ -104,4 +104,19 @@ const signup = async (req, res) => {
     }
 };
 
-export { login, signup, verify_token, login_required };
+const edit_password = async (req, res) => {
+    const username = res.locals.token_data.username;
+    const password = req.body.password;
+
+    try {
+        await change_password(username, password);
+        res.send({ status: 'Success' });
+    } catch (err) {
+        res.status(400).send({
+            status: 'Failed',
+            reason: err.message,
+        });
+    }
+};
+
+export { login, signup, verify_token, login_required, edit_password };
