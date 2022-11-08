@@ -36,7 +36,7 @@ const Signup = () => {
         try {
             await signup(values.username, values.password);
             setStatus('Success');
-            navigate('/edit_profile');
+            navigate('/settings');
         } catch (e) {
             // setStatus('Invalid Username or password');
             setStatus(`Error: ${e.message}`);

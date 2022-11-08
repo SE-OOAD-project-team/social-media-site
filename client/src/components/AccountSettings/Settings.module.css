@@ -1,0 +1,12 @@
+.Container {
+    display: grid;
+    grid-template-columns: 32vw auto;
+    grid-template-areas:
+        'a a a a a'
+        'b c c c c';
+}
+
+header {
+    padding: 20px;
+    border-bottom: 1px solid grey;
+}
