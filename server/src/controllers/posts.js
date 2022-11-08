@@ -2,7 +2,7 @@ import PostSchema from '../models/posts.js';
 
 //to get the body and save it in the database
 const PostInteraction = async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     const Interaction = new PostSchema(req.body); //convert the request body into schema
 
     try {
