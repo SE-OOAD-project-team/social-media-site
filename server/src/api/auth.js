@@ -1,7 +1,7 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
 
-import { create_user, verify_password } from '../lib/auth.js';
+import { create_user, verify_password, change_password } from '../lib/auth.js';
 
 /**
  * Middleware to verify user token and set res.locals.token_data if token is valid
@@ -104,4 +104,19 @@ const signup = async (req, res) => {
     }
 };
 
-export { login, signup, verify_token, login_required };
+const edit_password = async (req, res) => {
+    const username = res.locals.token_data.username;
+    const password = req.body.password;
+
+    try {
+        await change_password(username, password);
+        res.send({ status: 'Success' });
+    } catch (err) {
+        res.status(400).send({
+            status: 'Failed',
+            reason: err.message,
+        });
+    }
+};
+
+export { login, signup, verify_token, login_required, edit_password };

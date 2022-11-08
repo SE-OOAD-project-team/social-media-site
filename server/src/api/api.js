@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { login, signup, verify_token, login_required } from './auth.js';
+import { login, signup, verify_token, login_required, edit_password } from './auth.js';
 import posts_router from '../Routes/posts.js';
 import { get_profile, update_profile, follow, unfollow } from './profile.js';
 
@@ -11,6 +11,7 @@ router.use(verify_token);
 
 router.post('/login', login);
 router.post('/signup', signup);
+router.post('/edit_password', login_required, edit_password);
 
 router.use('/post', posts_router);
 
