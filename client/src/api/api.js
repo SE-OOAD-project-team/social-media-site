@@ -61,9 +61,32 @@ const signup = async (username, password) => {
     }
 };
 
+const edit_password = async (password) => {
+    const uri = join_path(process.env.REACT_APP_API_URI, '/api/edit_password');
+    console.log(uri);
+    const res = await fetch(uri, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({
+            password,
+        }),
+    });
+
+    const res_json = await res.json();
+
+    console.log(res_json);
+
+    if (res_json.status !== 'Success') {
+        throw new Error(res_json.reason);
+    }
+}
+
 const logout = () => {
     window.localStorage.removeItem('username');
     window.localStorage.removeItem('token');
 };
 
-export { login, logout, signup };
+export { login, logout, signup, edit_password };
