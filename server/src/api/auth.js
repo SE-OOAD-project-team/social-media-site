@@ -25,7 +25,7 @@ const verify_token = (req, res, next) => {
             res.locals.token_data = data;
         }
     } catch (error) {
-        console.log('Invalid Token:', error.name);
+        // console.log('Invalid Token:', error.name);
     }
 
     next();
@@ -62,7 +62,7 @@ const login = async (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
 
-    console.log('login', { username, password });
+    // console.log('login', { username, password });
 
     if (await verify_password(username, password)) {
         const token = jwt.sign(
@@ -91,7 +91,7 @@ const signup = async (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
 
-    console.log('signup', { username, password });
+    // console.log('signup', { username, password });
 
     try {
         await create_user(username, password);

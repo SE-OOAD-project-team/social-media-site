@@ -1,4 +1,5 @@
 import express from 'express';
+import morgan from 'morgan';
 
 import { login, signup, verify_token, login_required, edit_password } from './auth.js';
 import posts_router from '../Routes/posts.js';
@@ -8,6 +9,7 @@ const router = express.Router();
 
 router.use(express.json());
 router.use(verify_token);
+router.use(morgan('dev'));
 
 router.post('/login', login);
 router.post('/signup', signup);
