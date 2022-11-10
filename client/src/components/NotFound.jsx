@@ -1,7 +1,7 @@
 import React from 'react';
 
 import style from './NotFound.module.css';
-import image from './NotFound.svg';
+import image from '../assets/NotFound.svg';
 
 import { Link } from 'react-router-dom';
 

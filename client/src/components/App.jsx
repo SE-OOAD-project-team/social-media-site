@@ -4,6 +4,8 @@ import { useReducer } from 'react';
 import { Link } from 'react-router-dom';
 import { logout } from '../api/api.js';
 
+import settingsImage from '../assets/settings.svg';
+
 import './App.css';
 
 const App = () => {
@@ -26,7 +28,13 @@ const App = () => {
                         )}...`}</div>
 
                         <div>
-                            <Link to="/settings">Settings</Link>
+                            <Link to="/settings">
+                                <img
+                                    style={{width:'30px', height:'30px'}}
+                                    src={settingsImage}
+                                    alt="Settings"
+                                />
+                            </Link>
                         </div>
                     </>
                 ) : (
