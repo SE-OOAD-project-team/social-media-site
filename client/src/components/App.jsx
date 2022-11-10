@@ -17,9 +17,7 @@ const App = () => {
     return (
         <div className="App">
             <div>
-                <Link to="/profile">Profile</Link>
-            </div>
-            <div>
+                <Link to={`/profile/${username}`}>Profile</Link>
                 {token != null ? (
                     <>
                         <div>{`Username: ${username} Token: ${token.substring(
