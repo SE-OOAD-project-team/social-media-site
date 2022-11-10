@@ -19,10 +19,16 @@ const App = () => {
             </div>
             <div>
                 {token != null ? (
-                    <div>{`Username: ${username} Token: ${token.substring(
-                        0,
-                        5
-                    )}...`}</div>
+                    <>
+                        <div>{`Username: ${username} Token: ${token.substring(
+                            0,
+                            5
+                        )}...`}</div>
+
+                        <div>
+                            <Link to="/settings">Settings</Link>
+                        </div>
+                    </>
                 ) : (
                     <>
                         <div>

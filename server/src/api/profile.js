@@ -6,12 +6,15 @@ const get_profile = async (req, res) => {
     if (user != null) {
         // console.log(`Get api/profile/${req.params.username}`);
         res.send({
-            username: user.username,
-            displayName: user.displayName,
-            description: user.description,
-            followers: user.followers,
-            following: user.following,
-            posts: user.posts,
+            status: 'Success',
+            data: {
+                username: user.username,
+                displayName: user.displayName,
+                description: user.description,
+                followers: user.followers,
+                following: user.following,
+                posts: user.posts,
+            },
         });
     } else {
         res.status(404).send({ status: 'Failed' });
