@@ -11,10 +11,16 @@ const PasswordSettings = () => {
     const validate = (values) => {
         const errors = {};
 
-        if (values.password !== values.retype_password) {
-            errors.retype_password = "Passwords don't match";
+        if (!values.password) {
+            errors.password = 'Required';
         }
 
+        if (!values.retype_password) {
+            errors.retype_password = 'Required';
+        } else if (values.password !== values.retype_password) {
+            errors.retype_password = "Passwords don't match";
+        }
+        
         return errors;
     };
 
@@ -44,7 +50,7 @@ const PasswordSettings = () => {
             >
                 {({ isSubmitting, status }) => (
                     <Form className={formStyle.Form}>
-                        <h2>New Password</h2>
+                        <h2>Password</h2>
                         <div
                             className={`${formStyle.Error} ${formStyle.Small}`}
                         >
@@ -55,7 +61,7 @@ const PasswordSettings = () => {
                                 name="password"
                                 className={formStyle.Input}
                                 type="password"
-                                placeholder="Password"
+                                placeholder="New Password"
                             />
                             <div
                                 className={`${formStyle.Error} ${formStyle.XSmall}`}
