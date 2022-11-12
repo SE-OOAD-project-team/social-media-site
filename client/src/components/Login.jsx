@@ -30,7 +30,7 @@ const Login = () => {
         try {
             await login(values.username, values.password);
             setStatus('Success');
-            navigate(window.history.state != null ? -1 : '/');
+            navigate('/');
         } catch (e) {
             // setStatus('Invalid Username or password');
             setStatus(`Error: ${e.message}`);

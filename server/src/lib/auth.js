@@ -44,7 +44,7 @@ const validate_password = (password) => {
  * @param {string} username 
  */
  const validate_username = (username) => {
-    if (username.search(/[a-zA-Z0-9_-]/)) {
+    if (username.search(/[^a-zA-Z0-9_-]/) !== -1) {
         throw new Error('Username should match [a-zA-Z0-9_-]*');
     }
 }
