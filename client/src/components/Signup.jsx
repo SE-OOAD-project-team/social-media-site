@@ -12,6 +12,8 @@ const Signup = () => {
         const errors = {};
         if (!values.username) {
             errors.username = 'Required';
+        } else if (username.search(/[a-zA-Z0-9_-]/)) {
+            throw new Error('Username should match [a-zA-Z0-9_-]*');
         }
 
         if (!values.password) {

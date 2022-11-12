@@ -30,12 +30,22 @@ const verify_password = async (username, password) => {
 };
 
 /**
- * Checks if password has atleast 8 characters
+ * Validates password
  * @param {string} password 
  */
 const validate_password = (password) => {
     if (password.length < 8) {
         throw new Error('Password should have atleast 8 characters');
+    }
+}
+
+/**
+ * Validates username
+ * @param {string} username 
+ */
+ const validate_username = (username) => {
+    if (username.search(/[a-zA-Z0-9_-]/)) {
+        throw new Error('Username should match [a-zA-Z0-9_-]*');
     }
 }
 
@@ -46,6 +56,7 @@ const validate_password = (password) => {
  * @param {string} password
  */
 const create_user = async (username, password) => {
+    validate_username(username);
     validate_password(password);
 
     if ((await User.findOne({ username })) != null) {
