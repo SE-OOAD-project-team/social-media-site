@@ -6,7 +6,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import './userPage.css';
 import accountImage from '../../assets/account.svg';
 
-import { get_profile } from '../../api/api.js';
+import { join_path, get_profile } from '../../api/api.js';
 
 const UserPage = () => {
     const navigate = useNavigate();
@@ -35,7 +35,15 @@ const UserPage = () => {
                 <div className="alignProfile">
                     <img
                         className="userPic"
-                        src="https://www.whatsappimages.in/wp-content/uploads/2021/07/Top-HD-sad-quotes-for-whatsapp-status-in-hindi-Pics-Images-Download-Free.gif"
+                        src={
+                            profile.picture
+                                ? join_path(
+                                      process.env.REACT_APP_API_URI,
+                                      '/image',
+                                      profile.picture
+                                  )
+                                : accountImage
+                        }
                         alt="user profile pic loading"
                     />
 
