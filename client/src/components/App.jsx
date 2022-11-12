@@ -4,6 +4,8 @@ import { useReducer } from 'react';
 import { Link } from 'react-router-dom';
 import { logout } from '../api/api.js';
 
+import settingsImage from '../assets/settings.svg';
+
 import './App.css';
 
 const App = () => {
@@ -15,14 +17,24 @@ const App = () => {
     return (
         <div className="App">
             <div>
-                <Link to="/profile">Profile</Link>
-            </div>
-            <div>
+                <Link to={`/profile/${username}`}>Profile</Link>
                 {token != null ? (
-                    <div>{`Username: ${username} Token: ${token.substring(
-                        0,
-                        5
-                    )}...`}</div>
+                    <>
+                        <div>{`Username: ${username} Token: ${token.substring(
+                            0,
+                            5
+                        )}...`}</div>
+
+                        <div>
+                            <Link to="/settings">
+                                <img
+                                    style={{width:'30px', height:'30px'}}
+                                    src={settingsImage}
+                                    alt="Settings"
+                                />
+                            </Link>
+                        </div>
+                    </>
                 ) : (
                     <>
                         <div>

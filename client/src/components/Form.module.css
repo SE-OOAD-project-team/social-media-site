@@ -45,6 +45,7 @@
 
 .Input {
     width: 100%;
+    max-width: 400px;
     padding: 10px 20px;
     border: 1px #808080 solid;
     /* border-radius: 5px; */

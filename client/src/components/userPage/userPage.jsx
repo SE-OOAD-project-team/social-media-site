@@ -1,36 +1,101 @@
-import React from "react";
-import "./userPage.css"
+import React from 'react';
+import { useState, useEffect } from 'react';
 
-const UserPage = ()=>{
+import { useParams, Link, useNavigate } from 'react-router-dom';
 
-    return(
-      
-<>
+import './userPage.css';
+import accountImage from '../../assets/account.svg';
 
-    <div className="AppName"><h1>App Name</h1></div>
-        
-        <div className="Profile">
-            <div className="alignProfile">
-            <img className="userPic" src="https://www.whatsappimages.in/wp-content/uploads/2021/07/Top-HD-sad-quotes-for-whatsapp-status-in-hindi-Pics-Images-Download-Free.gif" alt="user profile pic loading"/>
+import { server_uri } from '../../index.js';
+import { join_path, get_profile } from '../../api/api.js';
 
-            <h2 className="userName">Your Username</h2>
+const UserPage = () => {
+    const navigate = useNavigate();
+    const { username } = useParams();
 
-            <div className="userDetM"> <div className="userDet"><h4>100</h4> <p> following</p></div> <div className="userDet"><h4>200</h4> <p> followers</p></div> <div className="userDet"><h4>7</h4> <p> Posts</p></div></div>
+    const [profile, setProfile] = useState({});
 
-            <button className="editProfile">Edit Profile</button>
+    useEffect(() => {
+        (async () => {
+            try {
+                const profile = await get_profile(username);
+                setProfile(profile);
+            } catch (err) {
+                navigate('/notfound', { replace: true });
+            }
+        })();
+    }, []);
+
+    return (
+        <>
+            <div className="AppName">
+                <h1>App Name</h1>
             </div>
-        </div>
 
-        <div className="divider1"></div>
+            <div className="Profile">
+                <div className="alignProfile">
+                    <img
+                        className="userPic"
+                        src={
+                            profile.picture
+                                ? join_path(
+                                      server_uri,
+                                      '/image',
+                                      profile.picture
+                                  )
+                                : accountImage
+                        }
+                        alt="user profile pic loading"
+                    />
 
-        <div className="posts">
-            <h1 className="postTitle">Your Posts</h1>
-        </div>
-</>
-    
-    )
-}
+                    <h1>{profile.displayName}</h1>
+                    <h4 className="userName">{profile.username}</h4>
 
+                    <div>{profile.description}</div>
 
+                    <div className="userDetM">
+                        {' '}
+                        <div className="userDet">
+                            <h4>
+                                {profile.following
+                                    ? profile.following.length
+                                    : 0}
+                            </h4>{' '}
+                            <p> following</p>
+                        </div>{' '}
+                        <div className="userDet">
+                            <h4>
+                                {profile.followers
+                                    ? profile.followers.length
+                                    : 0}
+                            </h4>{' '}
+                            <p> followers</p>
+                        </div>{' '}
+                        <div className="userDet">
+                            <h4>{profile.posts ? profile.posts.length : 0}</h4>{' '}
+                            <p> Posts</p>
+                        </div>
+                    </div>
+
+                    {username === window.localStorage.getItem('username') ? (
+                        <Link to="/settings">
+                            <button className="editProfile">
+                                Edit Profile
+                            </button>
+                        </Link>
+                    ) : (
+                        ''
+                    )}
+                </div>
+            </div>
+
+            <div className="divider1"></div>
+
+            <div className="posts">
+                <h1 className="postTitle">Your Posts</h1>
+            </div>
+        </>
+    );
+};
 
 export default UserPage;
