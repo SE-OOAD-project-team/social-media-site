@@ -72,8 +72,8 @@ const follow = async (req, res) => {
             reason: 'Invalid username',
         });
     } else {
-        user.following.addToSet(user_to_follow);
-        user_to_follow.followers.addToSet(user);
+        user.following.addToSet(user_to_follow.username);
+        user_to_follow.followers.addToSet(user.username);
 
         user.save();
         user_to_follow.save();
@@ -98,8 +98,8 @@ const unfollow = async (req, res) => {
             reason: 'Invalid username',
         });
     } else {
-        user.following.pull(user_to_unfollow);
-        user_to_unfollow.followers.pull(user);
+        user.following.pull(user_to_unfollow.username);
+        user_to_unfollow.followers.pull(user.username);
 
         user.save();
         user_to_unfollow.save();
