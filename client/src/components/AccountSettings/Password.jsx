@@ -7,7 +7,7 @@ import formStyle from '../Form.module.css';
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
-const PasswordSettings = () => {
+const PasswordSettings = (props) => {
     const validate = (values) => {
         const errors = {};
 
@@ -29,7 +29,7 @@ const PasswordSettings = () => {
         { setSubmitting, setStatus, setFieldValue }
     ) => {
         try {
-            await edit_password(values.username, values.password);
+            await edit_password(values.password);
             setStatus('Success');
         } catch (e) {
             // setStatus('Invalid Username or password');

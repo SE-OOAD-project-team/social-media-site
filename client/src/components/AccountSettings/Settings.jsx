@@ -1,13 +1,11 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import Sidebar from './Sidebar';
 import ProfileSettings from './Profile';
 import PasswordSettings from './Password.jsx';
 
 import homeImage from '../../assets/home.svg';
-
-import { get_profile } from '../../api/api.js';
 
 import style from './Settings.module.css';
 
@@ -16,25 +14,16 @@ import { useNavigate, Link } from 'react-router-dom';
 const Settings = () => {
     const navigate = useNavigate();
     
-    const [profile, setProfile] = useState({});
-
     const username = window.localStorage.getItem('username');
     if (username == null) {
         return navigate('/login');
     }
 
-    useEffect(() => {
-        (async () => {
-            const profile = await get_profile(username);
-            setProfile(profile);
-        })();
-    }, []);
-
     const [selected, setSelected] = useState(0);
 
     const tabs = ['Profile', 'Password'];
     const tab_components = [ProfileSettings, PasswordSettings].map(
-        (component) => React.createElement(component, { profile, setProfile })
+        (component) => React.createElement(component, { username })
     );
 
     return (

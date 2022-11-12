@@ -1,23 +1,32 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 
 import style from './TabComponent.module.css';
 import formStyle from '../Form.module.css';
 
-import { edit_profile } from '../../api/api.js';
+import accountImage from '../../assets/account.svg';
+
+import { edit_profile, get_profile } from '../../api/api.js';
 
 import { Formik, Form, Field } from 'formik';
 
 const ProfileSettings = (props) => {
-    const on_submit = async (
-        values,
-        { setSubmitting, setStatus }
-    ) => {
+    const [profile, setProfile] = useState({});
+
+    useEffect(() => {
+        (async () => {
+            const profile = await get_profile(props.username);
+            setProfile(profile);
+        })();
+    }, []);
+
+    const on_submit = async (values, { setSubmitting, setStatus }) => {
         try {
             await edit_profile({
                 displayName: values.displayName,
                 description: values.description,
             });
-            props.setProfile({ ...props.profile, ...values });
+            setProfile({ ...profile, ...values });
             setStatus('Success');
         } catch (e) {
             setStatus(`Error: ${e.message}`);
@@ -31,13 +40,14 @@ const ProfileSettings = (props) => {
             <Formik
                 enableReinitialize={true}
                 initialValues={{
-                    displayName: props.profile.displayName || '',
-                    description: props.profile.description || '',
+                    displayName: profile.displayName || '',
+                    description: profile.description || '',
+                    picture: null,
                 }}
                 // validate={validate}
                 onSubmit={on_submit}
             >
-                {({ isSubmitting, status }) => (
+                {({ isSubmitting, status, setFieldValue }) => (
                     <Form className={formStyle.Form}>
                         <h2>Profile</h2>
                         <div
@@ -48,7 +58,45 @@ const ProfileSettings = (props) => {
 
                         <div>
                             <h5>Username</h5>
-                            <div>{props.profile.username}</div>
+                            <div>{profile.username}</div>
+                        </div>
+                        <div>
+                            <h5>Picture</h5>
+                            <div>
+                                <img
+                                    id="picture-img"
+                                    src={accountImage}
+                                    style={{
+                                        width: '150px',
+                                        height: '150px',
+                                        borderRadius: '100%',
+                                    }}
+                                />
+                            </div>
+                            <input
+                                id="picture"
+                                name="picture"
+                                type="file"
+                                onChange={(event) => {
+                                    setFieldValue(
+                                        'picture',
+                                        event.currentTarget.files[0]
+                                    );
+                                    document.querySelector('#picture-img').src =
+                                        URL.createObjectURL(
+                                            event.currentTarget.files[0]
+                                        );
+                                    document.querySelector(
+                                        '#picture-img'
+                                    ).onload = function () {
+                                        URL.revokeObjectURL(
+                                            document.querySelector(
+                                                '#picture-img'
+                                            ).src
+                                        ); // free memory
+                                    };
+                                }}
+                            />
                         </div>
                         <div className={formStyle.Field}>
                             <h5>Display Name</h5>
