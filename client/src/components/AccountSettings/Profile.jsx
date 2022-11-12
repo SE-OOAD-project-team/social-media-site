@@ -79,6 +79,7 @@ const ProfileSettings = (props) => {
                             <div>
                                 <img
                                     id="picture-img"
+                                    alt="Profile picture"
                                     src={
                                         profile.picture
                                             ? join_path(
