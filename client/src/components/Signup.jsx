@@ -16,6 +16,8 @@ const Signup = () => {
 
         if (!values.password) {
             errors.password = 'Required';
+        } else if (values.password.length < 8) {
+            errors.password = 'Should have atleast 8 characters';
         }
 
         if (!values.retype_password) {
@@ -51,7 +53,11 @@ const Signup = () => {
         <div className={style.Container}>
             <div className={style.Box}>
                 <Formik
-                    initialValues={{ username: '', password: '', retype_password: '' }}
+                    initialValues={{
+                        username: '',
+                        password: '',
+                        retype_password: '',
+                    }}
                     validate={validate}
                     onSubmit={on_submit}
                 >

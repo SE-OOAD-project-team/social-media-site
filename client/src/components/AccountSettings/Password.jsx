@@ -13,6 +13,8 @@ const PasswordSettings = (props) => {
 
         if (!values.password) {
             errors.password = 'Required';
+        } else if (values.password.length < 8) {
+            errors.password = 'Should have atleast 8 characters';
         }
 
         if (!values.retype_password) {

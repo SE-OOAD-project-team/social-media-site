@@ -9,7 +9,7 @@ import crypto from 'crypto';
  * @param {string} password
  * @param {base64string} salt
  */
-const hashPassword = (password, salt) => {
+const hash_password = (password, salt) => {
     const hash = crypto.createHash('sha256');
     hash.update(password);
     hash.update(Buffer.from(salt, 'base64'));
@@ -17,7 +17,7 @@ const hashPassword = (password, salt) => {
 };
 
 /**
- * Verifies password
+ * Checks password with database
  * @param {string} username
  * @param {string} password
  */
@@ -25,9 +25,19 @@ const verify_password = async (username, password) => {
     const user = await User.findOne({ username });
     return (
         user != null &&
-        user.passwordHash === hashPassword(password, user.passwordSalt)
+        user.passwordHash === hash_password(password, user.passwordSalt)
     );
 };
+
+/**
+ * Checks if password has atleast 8 characters
+ * @param {string} password 
+ */
+const validate_password = (password) => {
+    if (password.length < 8) {
+        throw new Error('Password should have atleast 8 characters');
+    }
+}
 
 /**
  * Creates new user \
@@ -36,6 +46,8 @@ const verify_password = async (username, password) => {
  * @param {string} password
  */
 const create_user = async (username, password) => {
+    validate_password(password);
+
     if ((await User.findOne({ username })) != null) {
         throw new Error('User already exists');
     } else {
@@ -43,7 +55,7 @@ const create_user = async (username, password) => {
         const user = new User({
             username,
             passwordSalt: salt,
-            passwordHash: hashPassword(password, salt),
+            passwordHash: hash_password(password, salt),
         });
         await user.save();
         // console.log(user);
@@ -51,6 +63,8 @@ const create_user = async (username, password) => {
 };
 
 const change_password = async (username, password) => {
+    validate_password(password);
+
     const user = await User.findOne({ username });
 
     if (user == null) {
@@ -58,7 +72,7 @@ const change_password = async (username, password) => {
     } else {
         const salt = crypto.randomBytes(512).toString('base64');
         user.passwordSalt = salt;
-        user.passwordHash = hashPassword(password, salt);
+        user.passwordHash = hash_password(password, salt);
         await user.save();
     }
 };
