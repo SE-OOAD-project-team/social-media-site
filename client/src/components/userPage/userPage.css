@@ -78,6 +78,7 @@ body{
 .userDetM{
     display: flex;
     gap: 0.8vw;
+    justify-content: space-around;
     
 }
 

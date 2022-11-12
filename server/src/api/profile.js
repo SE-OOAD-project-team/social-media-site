@@ -6,12 +6,16 @@ const get_profile = async (req, res) => {
     if (user != null) {
         // console.log(`Get api/profile/${req.params.username}`);
         res.send({
-            username: user.username,
-            displayName: user.displayName,
-            description: user.description,
-            followers: user.followers,
-            following: user.following,
-            posts: user.posts,
+            status: 'Success',
+            data: {
+                username: user.username,
+                displayName: user.displayName,
+                description: user.description,
+                followers: user.followers,
+                following: user.following,
+                posts: user.posts,
+                picture: user.picture,
+            },
         });
     } else {
         res.status(404).send({ status: 'Failed' });
@@ -35,6 +39,23 @@ const update_profile = async (req, res) => {
     res.send({ status: 'Success' });
 };
 
+const update_profile_picture = async (req, res, next) => {
+    if (req.file == null) {
+        next(new Error('File not recieved'));
+    } else {
+        // console.log(req.file);
+        const user = await User.findOne({
+            username: res.locals.token_data.username,
+        });
+
+        user.picture = req.file.filename;
+
+        await user.save();
+
+        res.send({ status: 'Success' });
+    }
+};
+
 const follow = async (req, res) => {
     const user = await User.findOne({
         username: res.locals.token_data.username,
@@ -51,8 +72,8 @@ const follow = async (req, res) => {
             reason: 'Invalid username',
         });
     } else {
-        user.following.addToSet(user_to_follow);
-        user_to_follow.followers.addToSet(user);
+        user.following.addToSet(user_to_follow.username);
+        user_to_follow.followers.addToSet(user.username);
 
         user.save();
         user_to_follow.save();
@@ -77,8 +98,8 @@ const unfollow = async (req, res) => {
             reason: 'Invalid username',
         });
     } else {
-        user.following.pull(user_to_unfollow);
-        user_to_unfollow.followers.pull(user);
+        user.following.pull(user_to_unfollow.username);
+        user_to_unfollow.followers.pull(user.username);
 
         user.save();
         user_to_unfollow.save();
@@ -87,4 +108,10 @@ const unfollow = async (req, res) => {
     }
 };
 
-export { get_profile, update_profile, follow, unfollow };
+export {
+    get_profile,
+    update_profile,
+    update_profile_picture,
+    follow,
+    unfollow,
+};

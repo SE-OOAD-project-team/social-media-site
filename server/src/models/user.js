@@ -7,9 +7,10 @@ const UserSchema = new Schema({
     passwordSalt: { type: String, required: true },
     displayName: String,
     description: String,
-    followers: [{ type: Schema.Types.ObjectId, ref: 'User' }],
-    following: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    followers: [{ type: String }],
+    following: [{ type: String }],
     posts: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
+    picture: String,
 });
 
 const User = mongoose.model('User', UserSchema);

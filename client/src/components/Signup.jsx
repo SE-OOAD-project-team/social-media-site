@@ -1,40 +1,51 @@
 import React from 'react';
 
-import { login } from '../api/api.js';
+import { signup } from '../api/api.js';
 
 import { Link, useNavigate } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 import style from './Form.module.css';
 
-const Login = () => {
+const Signup = () => {
     const validate = (values) => {
         const errors = {};
         if (!values.username) {
             errors.username = 'Required';
+        } else if (values.username.search(/[^a-zA-Z0-9_-]/) !== -1) {
+            errors.username = 'Username should match [a-zA-Z0-9_-]*';
         }
 
         if (!values.password) {
             errors.password = 'Required';
+        } else if (values.password.length < 8) {
+            errors.password = 'Should have atleast 8 characters';
         }
-        
+
+        if (!values.retype_password) {
+            errors.retype_password = 'Required';
+        } else if (values.password !== values.retype_password) {
+            errors.retype_password = "Passwords don't match";
+        }
+
         return errors;
     };
-    
+
     const navigate = useNavigate();
-    
+
     const on_submit = async (
         values,
         { setSubmitting, setStatus, setFieldValue }
     ) => {
         try {
-            await login(values.username, values.password);
+            await signup(values.username, values.password);
             setStatus('Success');
-            navigate('/');
+            navigate('/settings');
         } catch (e) {
             // setStatus('Invalid Username or password');
             setStatus(`Error: ${e.message}`);
             setFieldValue('password', '', false);
+            setFieldValue('retype_password', '', false);
             console.log(e);
         }
         setSubmitting(false);
@@ -44,13 +55,17 @@ const Login = () => {
         <div className={style.Container}>
             <div className={style.Box}>
                 <Formik
-                    initialValues={{ username: '', password: '' }}
+                    initialValues={{
+                        username: '',
+                        password: '',
+                        retype_password: '',
+                    }}
                     validate={validate}
                     onSubmit={on_submit}
                 >
                     {({ isSubmitting, status }) => (
                         <Form className={style.Form}>
-                            <h1>Login</h1>
+                            <h1>Signup</h1>
                             <div className={`${style.Error} ${style.Small}`}>
                                 {status}
                             </div>
@@ -80,6 +95,19 @@ const Login = () => {
                                     <ErrorMessage name="password" />
                                 </div>
                             </div>
+                            <div className={style.Field}>
+                                <Field
+                                    name="retype_password"
+                                    className={style.Input}
+                                    type="password"
+                                    placeholder="Re-type Password"
+                                />
+                                <div
+                                    className={`${style.Error} ${style.XSmall}`}
+                                >
+                                    <ErrorMessage name="retype_password" />
+                                </div>
+                            </div>
                             <div className={`${style.Row} ${style.Field}`}>
                                 <button
                                     type="submit"
@@ -89,7 +117,7 @@ const Login = () => {
                                     Submit
                                 </button>
                                 <div>
-                                    <Link to="/signup">Sign Up</Link>
+                                    <Link to="/login">Login</Link>
                                 </div>
                             </div>
                         </Form>
@@ -100,4 +128,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Signup;

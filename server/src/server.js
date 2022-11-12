@@ -4,8 +4,6 @@ import cors from 'cors';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
 
-import api_router from './api/api.js';
-
 import dotenv from 'dotenv';
 
 // set env variables (PORT, MONGO_URI, ...) from file
@@ -16,8 +14,11 @@ console.log(
         `PORT=${process.env.PORT}`,
         `MONGO_URI=${process.env.MONGO_URI}`,
         `TOKEN_KEY=${process.env.TOKEN_KEY}`,
+        `UPLOAD_FOLDER=${process.env.UPLOAD_FOLDER}`,
     ].join('\n')
 );
+
+const api_router = (await import('./api/api.js')).default;
 
 const app = express();
 
@@ -30,16 +31,22 @@ mongoose.connection.on('connected', () => console.log('mongoose connected'));
 mongoose.connection.on('error', (err) => console.log('mongoose error:', err.message));
 mongoose.connection.on('disconnected', () => console.log('mongoose disconnected'));
 
+app.use('/api', api_router);
+
+if (process.env.UPLOAD_FOLDER) {
+    app.use('/image', express.static(path.resolve(process.env.UPLOAD_FOLDER)));
+}
+
 // if a path is specified in args, serve index.html from there
 if (process.argv[2]) {
     const indexPath = path.resolve(path.join(process.argv[2], 'index.html'));
     console.log(indexPath);
 
     app.use(express.static(process.argv[2]));
+
+    // '/*' must be matched last
     app.get('/*', (req, res) => res.sendFile(indexPath));
 }
-
-app.use('/api', api_router);
 
 const port = parseInt(process.env.PORT);
 const server = app.listen(port, () =>
