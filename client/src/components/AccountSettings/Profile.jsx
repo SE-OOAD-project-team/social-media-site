@@ -6,7 +6,12 @@ import formStyle from '../Form.module.css';
 
 import accountImage from '../../assets/account.svg';
 
-import { edit_profile, get_profile } from '../../api/api.js';
+import {
+    join_path,
+    edit_profile,
+    get_profile,
+    edit_profile_picture,
+} from '../../api/api.js';
 
 import { Formik, Form, Field } from 'formik';
 
@@ -26,7 +31,16 @@ const ProfileSettings = (props) => {
                 displayName: values.displayName,
                 description: values.description,
             });
-            setProfile({ ...profile, ...values });
+
+            if (values.picture != null) {
+                await edit_profile_picture(values.picture);
+            }
+
+            setProfile({
+                ...profile,
+                displayName: values.displayName,
+                description: values.description,
+            });
             setStatus('Success');
         } catch (e) {
             setStatus(`Error: ${e.message}`);
@@ -65,7 +79,15 @@ const ProfileSettings = (props) => {
                             <div>
                                 <img
                                     id="picture-img"
-                                    src={accountImage}
+                                    src={
+                                        profile.picture
+                                            ? join_path(
+                                                  process.env.REACT_APP_API_URI,
+                                                  '/image',
+                                                  profile.picture
+                                              )
+                                            : accountImage
+                                    }
                                     style={{
                                         width: '150px',
                                         height: '150px',

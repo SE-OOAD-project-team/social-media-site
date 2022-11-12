@@ -68,7 +68,7 @@ const edit_password = async (password) => {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
         body: JSON.stringify({
             password,
@@ -82,7 +82,7 @@ const edit_password = async (password) => {
     if (res_json.status !== 'Success') {
         throw new Error(res_json.reason);
     }
-}
+};
 
 const logout = () => {
     window.localStorage.removeItem('username');
@@ -90,7 +90,11 @@ const logout = () => {
 };
 
 const get_profile = async (username) => {
-    const uri = join_path(process.env.REACT_APP_API_URI, '/api/profile', username);
+    const uri = join_path(
+        process.env.REACT_APP_API_URI,
+        '/api/profile',
+        username
+    );
     console.log(uri);
     const res = await fetch(uri, {
         method: 'GET',
@@ -106,7 +110,7 @@ const get_profile = async (username) => {
     } else {
         throw new Error(res_json.reason);
     }
-}
+};
 
 const edit_profile = async (newProfile) => {
     const uri = join_path(process.env.REACT_APP_API_URI, '/api/profile');
@@ -115,7 +119,7 @@ const edit_profile = async (newProfile) => {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
         body: JSON.stringify(newProfile),
     });
@@ -125,6 +129,41 @@ const edit_profile = async (newProfile) => {
     if (res_json.status !== 'Success') {
         throw new Error(res_json.reason);
     }
-}
+};
 
-export { login, logout, signup, edit_password, get_profile, edit_profile };
+const edit_profile_picture = async (picture) => {
+    const uri = join_path(
+        process.env.REACT_APP_API_URI,
+        '/api/profile_picture'
+    );
+    console.log(uri);
+
+    const formData = new FormData();
+    formData.append('profile_picture', picture);
+    const res = await fetch(uri, {
+        method: 'POST',
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+        body: formData,
+    });
+
+    const res_json = await res.json();
+
+    console.log(res_json);
+
+    if (res_json.status !== 'Success') {
+        throw new Error(res_json.reason);
+    }
+};
+
+export {
+    join_path,
+    login,
+    logout,
+    signup,
+    edit_password,
+    get_profile,
+    edit_profile,
+    edit_profile_picture,
+};

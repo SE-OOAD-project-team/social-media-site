@@ -4,8 +4,6 @@ import cors from 'cors';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
 
-import api_router from './api/api.js';
-
 import dotenv from 'dotenv';
 
 // set env variables (PORT, MONGO_URI, ...) from file
@@ -16,8 +14,11 @@ console.log(
         `PORT=${process.env.PORT}`,
         `MONGO_URI=${process.env.MONGO_URI}`,
         `TOKEN_KEY=${process.env.TOKEN_KEY}`,
+        `UPLOAD_FOLDER=${process.env.UPLOAD_FOLDER}`,
     ].join('\n')
 );
+
+const api_router = (await import('./api/api.js')).default;
 
 const app = express();
 
@@ -37,6 +38,10 @@ if (process.argv[2]) {
 
     app.use(express.static(process.argv[2]));
     app.get('/*', (req, res) => res.sendFile(indexPath));
+}
+
+if (process.env.UPLOAD_FOLDER) {
+    app.use('/image', express.static(path.resolve(process.env.UPLOAD_FOLDER)));
 }
 
 app.use('/api', api_router);

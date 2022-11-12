@@ -14,6 +14,7 @@ const get_profile = async (req, res) => {
                 followers: user.followers,
                 following: user.following,
                 posts: user.posts,
+                picture: user.picture,
             },
         });
     } else {
@@ -36,6 +37,23 @@ const update_profile = async (req, res) => {
     await user.updateOne(updates);
 
     res.send({ status: 'Success' });
+};
+
+const update_profile_picture = async (req, res, next) => {
+    if (req.file == null) {
+        next(new Error('File not recieved'));
+    } else {
+        console.log(req.file);
+        const user = await User.findOne({
+            username: res.locals.token_data.username,
+        });
+
+        user.picture = req.file.filename;
+
+        await user.save();
+
+        res.send({ status: 'Success' });
+    }
 };
 
 const follow = async (req, res) => {
@@ -90,4 +108,10 @@ const unfollow = async (req, res) => {
     }
 };
 
-export { get_profile, update_profile, follow, unfollow };
+export {
+    get_profile,
+    update_profile,
+    update_profile_picture,
+    follow,
+    unfollow,
+};
