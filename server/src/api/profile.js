@@ -43,7 +43,7 @@ const update_profile_picture = async (req, res, next) => {
     if (req.file == null) {
         next(new Error('File not recieved'));
     } else {
-        console.log(req.file);
+        // console.log(req.file);
         const user = await User.findOne({
             username: res.locals.token_data.username,
         });
