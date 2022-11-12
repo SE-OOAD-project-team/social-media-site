@@ -12,6 +12,7 @@ import {
     get_profile,
     edit_profile_picture,
 } from '../../api/api.js';
+import { server_uri } from '../../index.js';
 
 import { Formik, Form, Field } from 'formik';
 
@@ -36,11 +37,11 @@ const ProfileSettings = (props) => {
                 await edit_profile_picture(values.picture);
             }
 
-            setProfile({
-                ...profile,
-                displayName: values.displayName,
-                description: values.description,
-            });
+            // setProfile({
+            //     ...profile,
+            //     displayName: values.displayName,
+            //     description: values.description,
+            // });
             setStatus('Success');
         } catch (e) {
             setStatus(`Error: ${e.message}`);
@@ -83,7 +84,7 @@ const ProfileSettings = (props) => {
                                     src={
                                         profile.picture
                                             ? join_path(
-                                                  process.env.REACT_APP_API_URI,
+                                                  server_uri,
                                                   '/image',
                                                   profile.picture
                                               )

@@ -6,6 +6,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import './userPage.css';
 import accountImage from '../../assets/account.svg';
 
+import { server_uri } from '../../index.js';
 import { join_path, get_profile } from '../../api/api.js';
 
 const UserPage = () => {
@@ -20,7 +21,7 @@ const UserPage = () => {
                 const profile = await get_profile(username);
                 setProfile(profile);
             } catch (err) {
-                navigate('/notfound');
+                navigate('/notfound', { replace: true });
             }
         })();
     }, []);
@@ -38,7 +39,7 @@ const UserPage = () => {
                         src={
                             profile.picture
                                 ? join_path(
-                                      process.env.REACT_APP_API_URI,
+                                      server_uri,
                                       '/image',
                                       profile.picture
                                   )

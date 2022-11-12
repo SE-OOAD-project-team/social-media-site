@@ -1,3 +1,5 @@
+import { server_uri } from '../index.js';
+
 const join_path = (...args) =>
     args
         .map((part, i) => {
@@ -11,7 +13,7 @@ const join_path = (...args) =>
         .join('/');
 
 const login = async (username, password) => {
-    const uri = join_path(process.env.REACT_APP_API_URI, '/api/login');
+    const uri = join_path(server_uri, '/api/login');
     console.log(uri);
     const res = await fetch(uri, {
         method: 'POST',
@@ -37,7 +39,7 @@ const login = async (username, password) => {
 };
 
 const signup = async (username, password) => {
-    const uri = join_path(process.env.REACT_APP_API_URI, '/api/signup');
+    const uri = join_path(server_uri, '/api/signup');
     console.log(uri);
     const res = await fetch(uri, {
         method: 'POST',
@@ -62,7 +64,7 @@ const signup = async (username, password) => {
 };
 
 const edit_password = async (password) => {
-    const uri = join_path(process.env.REACT_APP_API_URI, '/api/edit_password');
+    const uri = join_path(server_uri, '/api/edit_password');
     console.log(uri);
     const res = await fetch(uri, {
         method: 'POST',
@@ -91,7 +93,7 @@ const logout = () => {
 
 const get_profile = async (username) => {
     const uri = join_path(
-        process.env.REACT_APP_API_URI,
+        server_uri,
         '/api/profile',
         username
     );
@@ -113,7 +115,7 @@ const get_profile = async (username) => {
 };
 
 const edit_profile = async (newProfile) => {
-    const uri = join_path(process.env.REACT_APP_API_URI, '/api/profile');
+    const uri = join_path(server_uri, '/api/profile');
     console.log(uri);
     const res = await fetch(uri, {
         method: 'POST',
@@ -133,7 +135,7 @@ const edit_profile = async (newProfile) => {
 
 const edit_profile_picture = async (picture) => {
     const uri = join_path(
-        process.env.REACT_APP_API_URI,
+        server_uri,
         '/api/profile_picture'
     );
     console.log(uri);
