@@ -1,0 +1,87 @@
+body{
+    background-color: rgb(251, 251, 251);
+}
+
+.userPic{
+    border-radius: 50%;
+    height:200px;
+    width:200px;
+    margin-top:2vh;
+    box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.2), 0 8px 20px 0 rgba(0, 0, 0, 0.19);
+ 
+
+  
+}
+
+.AppName{
+    margin-left: 5vw;
+    color:rgb(2, 2, 2);
+    font-family:'Times New Roman', Times, serif ;
+    text-decoration: underline;
+}
+.userName{
+    color: white;
+  text-shadow: 1px 1px 1px #000000;
+  color: black;
+}
+.Profile{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    border-color: rgb(241, 14, 14);
+      
+  
+}
+
+.alignProfile{
+    display:block;
+}
+
+.editProfile{
+    border: .3cm;
+    border-color: black;
+    border:3px solid;
+    border-radius: .25cm;
+    padding: 5px 11px;
+    margin-top: 4px;
+    background-color: rgb(238, 229, 229);
+    color: rgb(82, 79, 79);
+    cursor: pointer;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.divider1{
+    border-color: black;
+    border-bottom: 1px solid;
+    height:2vh;
+    margin-left: 8vw;
+    margin-right: 8vw;    
+}
+
+.posts{
+    margin-top:2vh;
+    height:70vh;
+    margin-left:11vw;
+    margin-right:11vw;
+    border-color: black;
+    border: 2px solid;
+    text-align: center;
+    box-shadow: 0 6px 8px 0 rgba(0.5, 0, 0, 0.5), 0 8px 20px 0 rgba(0.5, 0.5, 0, 0.5);
+
+}
+
+.userDet{
+    margin:10px;
+    display: flex;
+    gap: 0.3vw;
+}
+.userDetM{
+    display: flex;
+    gap: 0.8vw;
+    justify-content: space-around;
+    
+}
+
+.postTitle{
+    text-decoration: underline;
+}
