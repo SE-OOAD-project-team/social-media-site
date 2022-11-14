@@ -159,6 +159,44 @@ const edit_profile_picture = async (picture) => {
     }
 };
 
+const follow_user = async(username) => {
+    const uri = join_path(server_uri, '/api/follow');
+    console.log(uri);
+    const res = await fetch(uri, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+        body: JSON.stringify({username}),
+    });
+
+    const res_json = await res.json();
+
+    if (res_json.status !== 'Success') {
+        throw new Error(res_json.reason);
+    }
+}
+
+const unfollow_user = async(username) => {
+    const uri = join_path(server_uri, '/api/unfollow');
+    console.log(uri);
+    const res = await fetch(uri, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+        body: JSON.stringify({username}),
+    });
+
+    const res_json = await res.json();
+
+    if (res_json.status !== 'Success') {
+        throw new Error(res_json.reason);
+    }
+}
+
 export {
     join_path,
     login,
@@ -168,4 +206,6 @@ export {
     get_profile,
     edit_profile,
     edit_profile_picture,
+    follow_user,
+    unfollow_user
 };

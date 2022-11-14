@@ -94,6 +94,7 @@ const ProfileSettings = (props) => {
                                         width: '150px',
                                         height: '150px',
                                         borderRadius: '100%',
+                                        objectFit: 'cover',
                                     }}
                                 />
                             </div>
