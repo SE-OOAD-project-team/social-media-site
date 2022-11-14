@@ -1,10 +1,14 @@
 #create-post-container {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     border: 1px solid black;
+    border-radius: 10px;
+    background-color: white;
+    width: 600px;
 
-    --create-post-component-width: 60%;
+    --create-post-component-width: 90%;
     --create-post-component-padding: 10px;
     --create-post-component-margin: 5px;
     --create-post-btn-padding: 5px 10px;
@@ -13,7 +17,7 @@
 #post-btn-container {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: flex-end;
     width: var(--create-post-component-width);
     padding: var(--create-post-component-padding);
 }

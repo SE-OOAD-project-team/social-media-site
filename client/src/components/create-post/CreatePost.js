@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
 import { useState, useRef } from "react";
 import "./CreatePost.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
-function CreatePost(){
+function CreatePost({setCreatePost}){
   const fileRef = useRef(null);
   const canvasRef = useRef(null);
   const [ hasUploadedImg, setHasUploadedImg ] = useState(false);
@@ -57,9 +59,14 @@ function CreatePost(){
     stopDefault(e);
   }
 
+  const closeCreatePost = () => {
+    setCreatePost(false);
+  }
+
   return (
     <div id="create-post-container">
       <p className="heading">Create a post</p>
+      <FontAwesomeIcon icon={faXmark} className="fa-icon-x-mark" onClick={closeCreatePost}/>
       <textarea className="create-post-input" placeholder="Say something about it..." maxLength={100}></textarea>
       {/* Allow users to upload images here */}
       <input type="file" id="img-upload" name="img-upload" accept="image/png, image/jpeg" ref={fileRef} onChange={handleFileSelectorChange} />
@@ -77,7 +84,6 @@ function CreatePost(){
 
       <div id="post-btn-container">
         <div className="cp-btn">POST</div>
-        <div className="cp-btn">DISCARD</div>
       </div>
     </div>  
   );
