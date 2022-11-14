@@ -2,7 +2,7 @@ import React from 'react';
 
 import { edit_password } from '../../api/api.js';
 
-import style from './TabComponent.module.css';
+import style from './Settings.module.css';
 import formStyle from '../Form.module.css';
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
@@ -87,7 +87,6 @@ const PasswordSettings = (props) => {
                         <div className={formStyle.Field}>
                             <button
                                 type="submit"
-                                className={formStyle.Button}
                                 disabled={isSubmitting}
                             >
                                 Submit

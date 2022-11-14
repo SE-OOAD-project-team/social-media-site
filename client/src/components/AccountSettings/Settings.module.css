@@ -15,3 +15,52 @@ header {
     display: flex;
     justify-content: space-between;
 }
+
+.TabComponent {
+    padding: 20px;
+
+    box-sizing: border-box;
+}
+
+h2 {
+    margin: 10px 0;
+}
+
+h5 {
+    margin: 10px 0;
+}
+
+nav {
+    /* border-right: 1px solid grey; */
+    padding: 10px;
+}
+
+.Tab {
+    cursor: pointer;
+
+    padding: 15px;
+    margin: 15px 0;
+}
+
+.Tab:hover {
+    background-color: beige;
+}
+
+.Selected, .Selected:hover {
+    background-color: hsl(60, 56%, 71%);
+}
+
+button {
+    padding: 10px 20px;
+    background-color: hsl(60, 56%, 71%);
+    cursor: pointer;
+    font-size: medium;
+}
+
+.Followed {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid lightgrey;
+}
