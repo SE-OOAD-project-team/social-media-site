@@ -3,9 +3,12 @@ import "./ViewPostSmall.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faComment } from "@fortawesome/free-solid-svg-icons";
 
-function ViewPostSmall({seed}) {
+function ViewPostSmall({seed, setViewFullPost}) {
+    const postClicked = () => {
+        setViewFullPost(true);
+    }
     return (
-        <div className="vp-small-container">
+        <div className="vp-small-container" onClick={postClicked}>
             <img className="vp-small-img" src={"https://picsum.photos/300/450?random=" + seed} />
             <div className="vp-small-info-container">
                 <div className="vp-small-profile-container">
