@@ -1,42 +1,49 @@
 import React from "react";
 import "./ViewPost.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart, faComment, faRetweet } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faComment, faXmark } from "@fortawesome/free-solid-svg-icons";
 
-function ViewPost() {
+function ViewPost({setViewFullPost}) {
     const sample = {
         user_details: {
-            name: "photosbyean",
-            profile_pic: "/temp/wallpaper.jpg"
+            name: "profileName",
+            profile_pic: "https://picsum.photos/30/30?random=2",
         },
-        title: "Post Heading 123",
-        pic: "/temp/wallpaper.jpg",
-        description: "jcnjknkscn jcnsdcnsdk sdnvcsivnsmdv sivnskdv dsvnjopghsu gojerhihuybcjmvje fuh fn sdhfudshjsmdnfsduh",
+        desc: "post description goes here",
+        pic: "https://picsum.photos/300/450?random=3",
         comments: [{
             name: "user1",
             profile_pic: "/temp/wallpaper.jpg",
             comment: "Well done. jfdnsfklds jkfndsknf."
         }],
-        likes_count: 233
+        likes_count: 233,
+        comments_count: 45,
     };
+
+    const closePost = () => {
+        setViewFullPost(false);
+    }
+
     return(
         <div className="view-post-container">
+            <FontAwesomeIcon icon={faXmark} className="fa-icon-x-mark" onClick={closePost}/>
             <div className="view-post-user-details-container">
-                <div className="view-post-user-profile-pic-container">
-                    <img className="view-post-user-profile-pic" src={sample.user_details.profile_pic} alt="profile-pic" />
-                </div>
+                <img className="view-post-user-profile-pic" src={sample.user_details.profile_pic} alt="profile-pic" />
                 <p className="view-post-user-name">{sample.user_details.name}</p>
             </div>
-            <div className="view-post-details-container">
-                <p className="view-post-title">{sample.title}</p>
+            <div className="view-post-img-container">
                 <img className="view-post-pic" src={sample.pic} alt="post-pic" />
-                <p className="view-post-description">{sample.description}</p>
             </div>
+            <p className="view-post-desc">{sample.desc}</p>
             <div className="view-post-interactions-container">
-                {/* Change the text to an icon later */}
-                <FontAwesomeIcon icon={faHeart} />
-                <FontAwesomeIcon icon={faComment} />
-                <FontAwesomeIcon icon={faRetweet} />
+                <div className="view-post-like-container">
+                    <FontAwesomeIcon icon={faHeart} className="fa-icon-heart" />
+                    <p>{sample.likes_count}</p>
+                </div>
+                <div className="view-post-comment-container">
+                    <FontAwesomeIcon icon={faComment} className="fa-icon-comment" />
+                    <p>{sample.comments_count}</p>
+                </div>
             </div>
         </div>
     )
