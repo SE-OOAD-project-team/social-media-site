@@ -21,3 +21,14 @@ code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
         monospace;
 }
+
+:root {
+  --primary_color: #ff0000;
+}
+
+.btn {
+  cursor: pointer;
+  border: 1px solid black;
+  padding: 5px 10px;
+  margin: 5px;
+}
