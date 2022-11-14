@@ -1,6 +1,6 @@
 import React from 'react';
 
-import style from './Sidebar.module.css';
+import style from './Settings.module.css';
 
 const Sidebar = (props) => {
     const tabs = props.tabs.map((tab, i) => (

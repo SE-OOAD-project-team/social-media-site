@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 
-import style from './TabComponent.module.css';
+import style from './Settings.module.css';
 import formStyle from '../Form.module.css';
 
 import accountImage from '../../assets/account.svg';
@@ -21,8 +21,12 @@ const ProfileSettings = (props) => {
 
     useEffect(() => {
         (async () => {
-            const profile = await get_profile(props.username);
-            setProfile(profile);
+            try {
+                const profile = await get_profile(props.username);
+                setProfile(profile);
+            } catch (err) {
+                console.log(err);
+            }
         })();
     }, []);
 
@@ -143,7 +147,7 @@ const ProfileSettings = (props) => {
                         <div className={formStyle.Field}>
                             <button
                                 type="submit"
-                                className={formStyle.Button}
+                                className={style.Button}
                                 disabled={isSubmitting}
                             >
                                 Save
