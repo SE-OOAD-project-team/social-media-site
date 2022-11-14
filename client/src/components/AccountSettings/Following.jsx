@@ -20,7 +20,11 @@ const Followed = ({ username }) => {
     return (
         <div className={style.Followed}>
             <div>{username}</div>
-            <button onClick={toggleIsFollowing} style={{fontSize: 'small'}} className={style.Button}>
+            <button
+                onClick={toggleIsFollowing}
+                style={{ fontSize: 'small' }}
+                className={style.Button}
+            >
                 {isFollowing ? 'Unfollow' : 'Follow'}
             </button>
         </div>
@@ -47,6 +51,9 @@ const FollowingSettings = ({ username }) => {
             {following.map((elem) => (
                 <Followed username={elem} key={elem} />
             ))}
+            <p
+                style={{ fontSize: 'small' }}
+            >{`${following.length} Results`}</p>
         </div>
     );
 };
