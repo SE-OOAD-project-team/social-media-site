@@ -22,7 +22,7 @@ const PasswordSettings = (props) => {
         } else if (values.password !== values.retype_password) {
             errors.retype_password = "Passwords don't match";
         }
-        
+
         return errors;
     };
 
@@ -52,7 +52,7 @@ const PasswordSettings = (props) => {
             >
                 {({ isSubmitting, status }) => (
                     <Form className={formStyle.Form}>
-                        <h2>Password</h2>
+                        <h2 className={style.H2}>Password</h2>
                         <div
                             className={`${formStyle.Error} ${formStyle.Small}`}
                         >
@@ -86,6 +86,7 @@ const PasswordSettings = (props) => {
                         </div>
                         <div className={formStyle.Field}>
                             <button
+                                className={style.Button}
                                 type="submit"
                                 disabled={isSubmitting}
                             >

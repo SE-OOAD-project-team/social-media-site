@@ -34,7 +34,7 @@ const Settings = () => {
 
     return (
         <div className={`${style.Container}`}>
-            <header style={{ gridArea: 'a' }}>
+            <header className={style.Header} style={{ gridArea: 'a' }}>
                 <h1>Settings</h1>
                 <Link to="/">
                     <img style={{ width: '36px' }} src={homeImage} alt="Home" />

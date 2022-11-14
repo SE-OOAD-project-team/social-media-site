@@ -20,7 +20,7 @@ const Followed = ({ username }) => {
     return (
         <div className={style.Followed}>
             <div>{username}</div>
-            <button onClick={toggleIsFollowing} style={{fontSize: 'small'}}>
+            <button onClick={toggleIsFollowing} style={{fontSize: 'small'}} className={style.Button}>
                 {isFollowing ? 'Unfollow' : 'Follow'}
             </button>
         </div>
@@ -43,7 +43,7 @@ const FollowingSettings = ({ username }) => {
 
     return (
         <div className={style.TabComponent}>
-            <h2>Following</h2>
+            <h2 className={style.H2}>Following</h2>
             {following.map((elem) => (
                 <Followed username={elem} key={elem} />
             ))}

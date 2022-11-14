@@ -68,7 +68,7 @@ const ProfileSettings = (props) => {
             >
                 {({ isSubmitting, status, setFieldValue }) => (
                     <Form className={formStyle.Form}>
-                        <h2>Profile</h2>
+                        <h2 className={style.H2}>Profile</h2>
                         <div
                             className={`${formStyle.Error} ${formStyle.Small}`}
                         >
@@ -76,11 +76,11 @@ const ProfileSettings = (props) => {
                         </div>
 
                         <div>
-                            <h5>Username</h5>
+                            <h5 className={style.H5}>Username</h5>
                             <div>{profile.username}</div>
                         </div>
                         <div>
-                            <h5>Picture</h5>
+                            <h5 className={style.H5}>Picture</h5>
                             <div>
                                 <img
                                     id="picture-img"
@@ -128,7 +128,7 @@ const ProfileSettings = (props) => {
                             />
                         </div>
                         <div className={formStyle.Field}>
-                            <h5>Display Name</h5>
+                            <h5 className={style.H5}>Display Name</h5>
                             <Field
                                 name="displayName"
                                 className={formStyle.Input}
@@ -136,7 +136,7 @@ const ProfileSettings = (props) => {
                             />
                         </div>
                         <div className={formStyle.Field}>
-                            <h5>Description</h5>
+                            <h5 className={style.H5}>Description</h5>
                             <Field
                                 name="description"
                                 className={formStyle.Input}
