@@ -3,7 +3,7 @@ import './SearchBar.css';
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { server_uri } from '../../index.js';
 import { join_path } from '../../api/api.js';
@@ -35,6 +35,8 @@ function SearchBar({ placeholder }) {
         setWordEntered('');
     };
 
+    const navigate = useNavigate();
+
     return (
         <div className="search">
             <div className="searchInputs">
@@ -57,7 +59,10 @@ function SearchBar({ placeholder }) {
                         {filteredData.slice(0, 15).map((value, i) => (
                             <Link
                                 className="dataItem"
-                                to={`/profile/${value}`}
+                                onClick={() => {
+                                    navigate(`/profile/${value}`);
+                                    navigate(0);
+                                }}
                                 key={i}
                                 // target="_blank"
                             >
