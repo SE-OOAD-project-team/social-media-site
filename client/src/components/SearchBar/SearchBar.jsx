@@ -3,21 +3,28 @@ import './SearchBar.css';
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 
-function SearchBar({ placeholder, data }) {
+import { server_uri } from '../../index.js';
+import { join_path } from '../../api/api.js';
+
+function SearchBar({ placeholder }) {
     const [filteredData, setFilteredData] = useState([]);
     const [wordEntered, setWordEntered] = useState('');
 
-    const handleFilter = (event) => {
+    const handleFilter = async (event) => {
         const searchWord = event.target.value;
         setWordEntered(searchWord);
-        const newFilter = data.filter((value) => {
-            return value.title.toLowerCase().includes(searchWord.toLowerCase());
-        });
 
-        if (searchWord === '') {
+        const uri = join_path(server_uri, '/api/search/', searchWord);
+        console.log(uri);
+        const res = await fetch(uri);
+
+        const res_json = await res.json();
+        console.log(res_json);
+
+        if (res_json.status !== 'Success' || searchWord === '') {
             setFilteredData([]);
         } else {
-            setFilteredData(newFilter);
+            setFilteredData(res_json.data);
         }
     };
 
@@ -42,21 +49,22 @@ function SearchBar({ placeholder, data }) {
                         <CloseIcon id="clearBtn" onClick={clearInput} />
                     )}
                 </div>
-            {filteredData.length != 0 && (
-                <div className="dataResult">
-                    {filteredData.slice(0, 15).map((value, key) => {
-                        return (
-                            <a
-                                className="dataItem"
-                                href={value.link}
-                                target="_blank"
-                            >
-                                <p>{value.title} </p>
-                            </a>
-                        );
-                    })}
-                </div>
-            )}
+                {/* <div>{`Data: ${filteredData}`}</div> */}
+                {filteredData.length !== 0 && (
+                    <div className="dataResult">
+                        {filteredData.slice(0, 15).map((value, i) => {
+                            return (
+                                <a
+                                    className="dataItem"
+                                    href={`/profile/${value}`}
+                                    target="_blank"
+                                >
+                                    <p>{value}</p>
+                                </a>
+                            );
+                        })}
+                    </div>
+                )}
             </div>
         </div>
     );
