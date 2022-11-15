@@ -1,0 +1,49 @@
+#capture-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+/* #capture-video-container {
+    position: relative;
+} */
+
+#capture-video {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+/* #capture-video-frame {
+    border: 1px solid black;
+    width: 300px;
+    height: 450px;
+    position: absolute;
+    top: 0;
+} */
+
+#capture-canvas {
+    display: none;
+}
+
+#capture-preview {
+    width: 300px;
+    height: 450px;
+    border-radius: 10px;
+}
+
+#capture-btn {
+    cursor: pointer;
+    padding: 5px 10px;
+    margin: 10px;
+    width: 20%;
+    border-radius: 10px;
+    text-align: center;
+    background-color: rgba(255, 0, 0, 0.6);
+    color: white;
+  }
+  
+#capture-btn:hover {
+    background-color: pink;
+  }

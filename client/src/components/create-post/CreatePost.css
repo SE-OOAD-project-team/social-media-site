@@ -1,4 +1,5 @@
 #create-post-container {
+    padding: 20px 10px;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -12,6 +13,10 @@
     --create-post-component-padding: 10px;
     --create-post-component-margin: 5px;
     --create-post-btn-padding: 5px 10px;
+}
+
+.cp-heading {
+  font-size: 1.5em;
 }
 
 #post-btn-container {
@@ -42,15 +47,23 @@ textarea {
 }
 
 .cp-drop-zone {
+  position: relative;
   padding: var(--create-post-component-padding);
   width: var(--create-post-component-width);
-  height: 100px;
+  height: 300px;
   border: 1px dashed black;
+  border-radius: 10px;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.cp-img-upload-box-note {
+  position: absolute;
+  bottom: 10px;
+  font-size: 0.7em;
 }
 
 .cp-canvas {
@@ -59,9 +72,24 @@ textarea {
 
 .cp-btn {
   cursor: pointer;
-  border: 1px solid black;
   padding: var(--create-post-btn-padding);
   width: 20%;
   border-radius: 10px;
   text-align: center;
+  background-color: rgba(255, 0, 0, 0.6);
+  color: white;
+}
+
+.cp-btn:hover {
+  background-color: pink;
+}
+
+#cp-preview-img {
+  width: 300px;
+  height: 450px;
+  border-radius: 10px;
+}
+
+.cp-capture-container {
+  width: var(--create-post-component-width)
 }
