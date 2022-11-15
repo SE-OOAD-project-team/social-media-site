@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 
-import style from './TabComponent.module.css';
+import style from './Settings.module.css';
 import formStyle from '../Form.module.css';
 
 import accountImage from '../../assets/account.svg';
@@ -21,8 +21,12 @@ const ProfileSettings = (props) => {
 
     useEffect(() => {
         (async () => {
-            const profile = await get_profile(props.username);
-            setProfile(profile);
+            try {
+                const profile = await get_profile(props.username);
+                setProfile(profile);
+            } catch (err) {
+                console.log(err);
+            }
         })();
     }, []);
 
@@ -64,7 +68,7 @@ const ProfileSettings = (props) => {
             >
                 {({ isSubmitting, status, setFieldValue }) => (
                     <Form className={formStyle.Form}>
-                        <h2>Profile</h2>
+                        <h2 className={style.H2}>Profile</h2>
                         <div
                             className={`${formStyle.Error} ${formStyle.Small}`}
                         >
@@ -72,11 +76,11 @@ const ProfileSettings = (props) => {
                         </div>
 
                         <div>
-                            <h5>Username</h5>
+                            <h5 className={style.H5}>Username</h5>
                             <div>{profile.username}</div>
                         </div>
                         <div>
-                            <h5>Picture</h5>
+                            <h5 className={style.H5}>Picture</h5>
                             <div>
                                 <img
                                     id="picture-img"
@@ -94,6 +98,7 @@ const ProfileSettings = (props) => {
                                         width: '150px',
                                         height: '150px',
                                         borderRadius: '100%',
+                                        objectFit: 'cover',
                                     }}
                                 />
                             </div>
@@ -123,7 +128,7 @@ const ProfileSettings = (props) => {
                             />
                         </div>
                         <div className={formStyle.Field}>
-                            <h5>Display Name</h5>
+                            <h5 className={style.H5}>Display Name</h5>
                             <Field
                                 name="displayName"
                                 className={formStyle.Input}
@@ -131,7 +136,7 @@ const ProfileSettings = (props) => {
                             />
                         </div>
                         <div className={formStyle.Field}>
-                            <h5>Description</h5>
+                            <h5 className={style.H5}>Description</h5>
                             <Field
                                 name="description"
                                 className={formStyle.Input}
@@ -142,7 +147,7 @@ const ProfileSettings = (props) => {
                         <div className={formStyle.Field}>
                             <button
                                 type="submit"
-                                className={formStyle.Button}
+                                className={style.Button}
                                 disabled={isSubmitting}
                             >
                                 Save

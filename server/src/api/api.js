@@ -17,6 +17,7 @@ import {
     follow,
     unfollow,
 } from './profile.js';
+import { search } from './search.js';
 
 const multer_upload = multer({
     storage: multer.diskStorage({
@@ -49,6 +50,8 @@ router.post('/login', login);
 router.post('/signup', signup);
 router.post('/edit_password', login_required, edit_password);
 
+router.get('/search/:string', search);
+
 router.use('/post', posts_router);
 
 router.get('/profile/:username', get_profile);
@@ -75,7 +78,7 @@ router.get('/abc', (req, res) => {
 
 // Error handler
 router.use((err, req, res, next) => {
-    res.status(400).send({status: 'Failed', reason: err.message});
-})
+    res.status(400).send({ status: 'Failed', reason: err.message });
+});
 
 export default router;
