@@ -3,6 +3,8 @@ import './SearchBar.css';
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 
+import { Link } from 'react-router-dom';
+
 import { server_uri } from '../../index.js';
 import { join_path } from '../../api/api.js';
 
@@ -52,17 +54,16 @@ function SearchBar({ placeholder }) {
                 {/* <div>{`Data: ${filteredData}`}</div> */}
                 {filteredData.length !== 0 && (
                     <div className="dataResult">
-                        {filteredData.slice(0, 15).map((value, i) => {
-                            return (
-                                <a
-                                    className="dataItem"
-                                    href={`/profile/${value}`}
-                                    // target="_blank"
-                                >
-                                    <p>{value}</p>
-                                </a>
-                            );
-                        })}
+                        {filteredData.slice(0, 15).map((value, i) => (
+                            <Link
+                                className="dataItem"
+                                to={`/profile/${value}`}
+                                key={i}
+                                // target="_blank"
+                            >
+                                <p>{value}</p>
+                            </Link>
+                        ))}
                     </div>
                 )}
             </div>
