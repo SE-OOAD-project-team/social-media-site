@@ -10,7 +10,7 @@ import Header from '../Header';
 
 import style from './Settings.module.css';
 
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Settings = () => {
     const navigate = useNavigate();
@@ -19,7 +19,7 @@ const Settings = () => {
 
     useEffect(() => {
         if (username == null) {
-            navigate('/login');
+            navigate('/login', { replace: true });
         }
     });
 
@@ -34,12 +34,7 @@ const Settings = () => {
 
     return (
         <div className={`${style.Container}`}>
-            <Header
-                title="Settings"
-                redirectHome={true}
-                // className={style.Header}
-                style={{ gridArea: 'a' }}
-            />
+            <Header title="Settings" style={{ gridArea: 'a' }} />
             <Sidebar
                 style={{ gridArea: 'b' }}
                 tabs={tabs}
