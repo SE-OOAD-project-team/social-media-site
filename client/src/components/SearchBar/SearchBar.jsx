@@ -57,7 +57,7 @@ function SearchBar({ placeholder }) {
                                 <a
                                     className="dataItem"
                                     href={`/profile/${value}`}
-                                    target="_blank"
+                                    // target="_blank"
                                 >
                                     <p>{value}</p>
                                 </a>
