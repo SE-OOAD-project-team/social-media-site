@@ -42,7 +42,9 @@ const UserPage = () => {
             setProfile({
                 ...profile,
                 followers: following
-                    ? profile.followers.filter((elem) => elem !== current_username)
+                    ? profile.followers.filter(
+                          (elem) => elem !== current_username
+                      )
                     : [...profile.followers, current_username],
             });
         } catch (err) {
@@ -112,19 +114,23 @@ const UserPage = () => {
                         </div>
                     </div>
 
-                    {username === window.localStorage.getItem('username') ? (
-                        <Link to="/settings">
-                            <button className="editProfile">
-                                Edit Profile
+                    {window.localStorage.getItem('username') != null ? (
+                        username === window.localStorage.getItem('username') ? (
+                            <Link to="/settings">
+                                <button className="editProfile">
+                                    Edit Profile
+                                </button>
+                            </Link>
+                        ) : (
+                            <button
+                                className="editProfile"
+                                onClick={toggleFollowing}
+                            >
+                                {following ? 'Unfollow' : 'Follow'}
                             </button>
-                        </Link>
+                        )
                     ) : (
-                        <button
-                            className="editProfile"
-                            onClick={toggleFollowing}
-                        >
-                            {following ? 'Unfollow' : 'Follow'}
-                        </button>
+                        ''
                     )}
                 </div>
             </div>

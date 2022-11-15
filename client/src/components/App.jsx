@@ -8,14 +8,19 @@ import settingsImage from '../assets/settings.svg';
 
 import './App.css';
 
+import SearchBar from './SearchBar/SearchBar';
+
 const App = () => {
     const username = window.localStorage.getItem('username');
     const token = window.localStorage.getItem('token');
 
     const [, forceUpdate] = useReducer((x) => x + 1, 0);
 
+    const data = [{'title': 'xyz'}]
+
     return (
         <div className="App">
+            <SearchBar placeholder="Search" data={data}/>
             <div>
                 <Link to={`/profile/${username}`}>Profile</Link>
                 {token != null ? (
