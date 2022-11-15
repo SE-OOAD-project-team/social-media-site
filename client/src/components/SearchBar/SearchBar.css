@@ -1,5 +1,5 @@
 .searchInputs {
-    margin-top: 105px;
+    /* margin-top: 105px; */
     display: flex;
 }
 
@@ -33,10 +33,13 @@ input:focus {
 }
 
 .dataResult {
-    margin-top: 5px;
+    position: absolute;
+    top: 50px;
+    z-index: 1;
+    /* margin-top: 5px; */
     width: 300px;
     height: 200px;
-    /* background-color: grey; */
+    background-color: white;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     overflow: hidden;
     overflow-y: auto;

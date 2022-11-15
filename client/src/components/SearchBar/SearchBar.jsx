@@ -42,7 +42,6 @@ function SearchBar({ placeholder, data }) {
                         <CloseIcon id="clearBtn" onClick={clearInput} />
                     )}
                 </div>
-            </div>
             {filteredData.length != 0 && (
                 <div className="dataResult">
                     {filteredData.slice(0, 15).map((value, key) => {
@@ -58,6 +57,7 @@ function SearchBar({ placeholder, data }) {
                     })}
                 </div>
             )}
+            </div>
         </div>
     );
 }
