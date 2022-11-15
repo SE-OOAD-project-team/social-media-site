@@ -63,7 +63,7 @@ const UserPage = () => {
                 navigate('/notfound', { replace: true });
             }
         })();
-    }, []);
+    }, [username]);
 
     return (
         <>
