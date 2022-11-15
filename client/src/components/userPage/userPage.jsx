@@ -7,7 +7,12 @@ import './userPage.css';
 import accountImage from '../../assets/account.svg';
 
 import { server_uri } from '../../index.js';
-import { join_path, get_profile } from '../../api/api.js';
+import {
+    join_path,
+    get_profile,
+    follow_user,
+    unfollow_user,
+} from '../../api/api.js';
 
 const UserPage = () => {
     const navigate = useNavigate();
@@ -15,11 +20,43 @@ const UserPage = () => {
 
     const [profile, setProfile] = useState({});
 
+    const current_username = window.localStorage.getItem('username');
+
+    let following = false;
+    if (
+        profile != null &&
+        current_username != null &&
+        username !== current_username
+    ) {
+        if (
+            profile.followers instanceof Array &&
+            profile.followers.find((elem) => elem === current_username)
+        ) {
+            following = true;
+        }
+    }
+
+    const toggleFollowing = () => {
+        try {
+            following ? unfollow_user(username) : follow_user(username);
+            setProfile({
+                ...profile,
+                followers: following
+                    ? profile.followers.filter(
+                          (elem) => elem !== current_username
+                      )
+                    : [...profile.followers, current_username],
+            });
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
     useEffect(() => {
         (async () => {
             try {
-                const profile = await get_profile(username);
-                setProfile(profile);
+                const fetched_profile = await get_profile(username);
+                setProfile(fetched_profile);
             } catch (err) {
                 navigate('/notfound', { replace: true });
             }
@@ -77,12 +114,21 @@ const UserPage = () => {
                         </div>
                     </div>
 
-                    {username === window.localStorage.getItem('username') ? (
-                        <Link to="/settings">
-                            <button className="editProfile">
-                                Edit Profile
+                    {window.localStorage.getItem('username') != null ? (
+                        username === window.localStorage.getItem('username') ? (
+                            <Link to="/settings">
+                                <button className="editProfile">
+                                    Edit Profile
+                                </button>
+                            </Link>
+                        ) : (
+                            <button
+                                className="editProfile"
+                                onClick={toggleFollowing}
+                            >
+                                {following ? 'Unfollow' : 'Follow'}
                             </button>
-                        </Link>
+                        )
                     ) : (
                         ''
                     )}
