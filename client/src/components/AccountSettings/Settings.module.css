@@ -8,18 +8,14 @@
     min-height: 100vh;
 }
 
-.Header {
-    padding: 20px;
-    border-bottom: 1px solid grey;
-
-    display: flex;
-    justify-content: space-between;
-}
-
 .TabComponent {
-    padding: 20px;
+    padding: 0 10px 10px 10px;
 
     box-sizing: border-box;
+}
+
+.Sidebar {
+    padding: 0 15px;
 }
 
 .H2 {
@@ -30,16 +26,12 @@
     margin: 10px 0;
 }
 
-.Nav {
-    /* border-right: 1px solid grey; */
-    padding: 10px;
-}
-
 .Tab {
     cursor: pointer;
 
     padding: 15px;
-    margin: 15px 0;
+    margin: 0 0 15px 0;
+    border-radius: 10px;
 }
 
 .Tab:hover {

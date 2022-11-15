@@ -1,5 +1,5 @@
 import React from 'react';
-import { useReducer } from 'react';
+import { useState, useReducer, useEffect } from 'react';
 
 import { Link } from 'react-router-dom';
 import { logout } from '../api/api.js';
@@ -8,7 +8,7 @@ import settingsImage from '../assets/settings.svg';
 
 import './App.css';
 
-import SearchBar from './SearchBar/SearchBar';
+import Header from './Header';
 
 const App = () => {
     const username = window.localStorage.getItem('username');
@@ -16,11 +16,9 @@ const App = () => {
 
     const [, forceUpdate] = useReducer((x) => x + 1, 0);
 
-    const data = [{'title': 'xyz'}]
-
     return (
         <div className="App">
-            <SearchBar placeholder="Search" data={data}/>
+            <Header username={username} title="Social Media Site" redirectHome={false}/>
             <div>
                 <Link to={`/profile/${username}`}>Profile</Link>
                 {token != null ? (
@@ -33,7 +31,7 @@ const App = () => {
                         <div>
                             <Link to="/settings">
                                 <img
-                                    style={{width:'30px', height:'30px'}}
+                                    style={{ width: '30px', height: '30px' }}
                                     src={settingsImage}
                                     alt="Settings"
                                 />

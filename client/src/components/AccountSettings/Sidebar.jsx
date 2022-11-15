@@ -15,7 +15,7 @@ const Sidebar = (props) => {
         </div>
     ));
 
-    return <nav style={props.style}>{tabs}</nav>;
+    return <nav className={style.Sidebar} style={props.style}>{tabs}</nav>;
 };
 
 export default Sidebar;
