@@ -15,7 +15,6 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = (req, file, cb) => {
-    console.log(file);
     const allowedFileTypes = ['image/jpeg', 'image/jpg', 'image/png'];
     if (allowedFileTypes.includes(file.mimetype)) {
         cb(null, true);
@@ -33,6 +32,7 @@ const PostInteraction = async (req, res) => {
     let post = {
         name: res.locals.token_data.username,
         pic: req.file.filename,
+        desc: req.body.desc,
 
         likes: [
             {
@@ -62,11 +62,9 @@ const PostInteraction = async (req, res) => {
 
     const user = await User.findOne({ username: res.locals.token_data.username });
 
-    
     try {
         await Interaction.save(); //save the schema in mongodb
         user.posts.push(Interaction);
-        console.log(user.posts);
         await user.save();
         res.json({ status: 'Success' });
     } catch (err) {
