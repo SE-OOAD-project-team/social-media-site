@@ -6,7 +6,7 @@ import ProfileSettings from './Profile';
 import PasswordSettings from './Password.jsx';
 import FollowingSettings from './Following.jsx';
 
-import Header from '../Header';
+import Header from '../header/Header';
 
 import style from './Settings.module.css';
 

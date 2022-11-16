@@ -14,7 +14,7 @@ import {
     unfollow_user,
 } from '../../api/api.js';
 
-import Header from '../Header';
+import Header from '../header/Header';
 
 const UserPage = () => {
     const navigate = useNavigate();

@@ -3,14 +3,16 @@ import { useState, useEffect } from 'react';
 
 import { Link, useNavigate } from 'react-router-dom';
 
-import { join_path, get_profile, logout } from '../api/api.js';
-import { server_uri } from '../index.js';
+import "./Header.css";
 
-import accountImage from '../assets/account.svg';
+import { join_path, get_profile, logout } from '../../api/api.js';
+import { server_uri } from '../../index.js';
 
-import SearchBar from './SearchBar/SearchBar';
+import accountImage from '../../assets/account.svg';
 
-const Header = ({ title, style }) => {
+import SearchBar from '../SearchBar/SearchBar';
+
+const Header = ({ title, style, setCreatePost }) => {
     const username = window.localStorage.getItem('username');
 
     const [profilePicSrc, setProfilePicSrc] = useState(null);
@@ -36,8 +38,9 @@ const Header = ({ title, style }) => {
 
     return (
         <header className="Header" style={style}>
-            <h1>{title}</h1>
+            <h2>{title}</h2>
             <SearchBar placeholder="Search" />
+            <div id="create-post-btn" onClick={() => setCreatePost(true)}>Create a Post</div>
             <div onClick={() => setSelected(!selected)}>
                 <img
                     src={
