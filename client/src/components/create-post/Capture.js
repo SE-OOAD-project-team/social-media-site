@@ -6,24 +6,60 @@ function Capture() {
     const height = 450;
 
     const [ streaming, setStreaming ] = useState(false);
+    const [ stream, setStream ] = useState(null);
     const [ imgSrc, setImgSrc ] = useState(null);
 
     const videoRef = useRef(null);
     const canvasRef = useRef(null);
     const startBtnRef = useRef(null);
 
+    // useEffect(() => {
+    //     if(imgSrc === null){
+    //         navigator.mediaDevices.getUserMedia({video: true, audio: false})
+    //             .then((stream) => {
+    //                 videoRef.current.srcObject = stream;
+    //                 videoRef.current.play();
+    //             })
+    //             .catch(err => {
+    //                 console.log(err);
+    //             })
+    //         }
+    // }, [imgSrc]);
+
     useEffect(() => {
-        if(imgSrc === null){
-            navigator.mediaDevices.getUserMedia({video: true, audio: false})
-                .then((stream) => {
-                    videoRef.current.srcObject = stream;
+        async function create_or_delete_stream(){
+            if(imgSrc === null){
+                try {
+                    const _stream = await navigator.mediaDevices.getUserMedia({video: true, audio: false});
+                    setStream(_stream)
+                    videoRef.current.srcObject = _stream;
                     videoRef.current.play();
-                })
-                .catch(err => {
+                }
+                catch(err) {
                     console.log(err);
-                })
+                }
             }
+            else {
+                if(stream != null)
+                    stopBothVideoAndAudio(stream);
+                setStream(null);
+            }
+        }
+        create_or_delete_stream();
+        return function cleanup() {
+            if(stream != null)
+                stopBothVideoAndAudio(stream);
+        };
     }, [imgSrc]);
+
+    // stop both mic and camera
+    const stopBothVideoAndAudio = (_stream) => {
+        _stream.getTracks().forEach(function(track) {
+            if (track.readyState == 'live') {
+                track.stop();
+            }
+        });
+    }
 
     const handleCanPlay = (e) => {
         if(!streaming){
