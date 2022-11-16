@@ -7,9 +7,10 @@ import UserPage from './components/userPage/userPage';
 import Settings from './components/AccountSettings/Settings';
 import NotFound from './components/NotFound';
 import HomeFeed from './components/home-feed/HomeFeed';
+import GeneratePost from './api/generate_posts';
 import Login from './components/Login';
 import Signup from './components/Signup';
-import Capture from './components/create-post/Capture';
+
 
 const AppRouter = () => {
     return (
@@ -21,6 +22,7 @@ const AppRouter = () => {
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="*" element={<NotFound />} />
+                <Route path="/testgen" element={<GeneratePost />} />
                 <Route path="/notfound" element={<NotFound />} />
                 {/* <Route path="/home-feed" element={<HomeFeed />} /> */}
                 {/* <Route path="/capture" element={<Capture />} /> */}
