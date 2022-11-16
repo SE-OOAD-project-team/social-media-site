@@ -38,7 +38,7 @@ const Header = ({ title, style, setCreatePost }) => {
 
     return (
         <header className="Header" style={style}>
-            <h2>{title}</h2>
+            <h2 style={{marginLeft: '10px'}}>{title}</h2>
             <SearchBar placeholder="Search" />
             {username != null && setCreatePost && (
                 <div id="create-post-btn" onClick={() => setCreatePost(true)}>
