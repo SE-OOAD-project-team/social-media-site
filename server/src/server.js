@@ -3,6 +3,7 @@ import path from 'path';
 import cors from 'cors';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
+import router from "../src/Routes/posts.js"
 
 import dotenv from 'dotenv';
 
@@ -24,6 +25,7 @@ const app = express();
 
 app.use(cors());
 app.use(morgan('dev'));
+app.use(express.json());
 
 mongoose.connect(process.env.MONGO_URI);
 
@@ -32,6 +34,7 @@ mongoose.connection.on('error', (err) => console.log('mongoose error:', err.mess
 mongoose.connection.on('disconnected', () => console.log('mongoose disconnected'));
 
 app.use('/api', api_router);
+app.use("/createPost",router);
 
 if (process.env.UPLOAD_FOLDER) {
     app.use('/image', express.static(path.resolve(process.env.UPLOAD_FOLDER)));
