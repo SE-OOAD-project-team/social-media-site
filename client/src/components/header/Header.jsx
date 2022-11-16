@@ -38,7 +38,7 @@ const Header = ({ title, style, setCreatePost }) => {
 
     return (
         <header className="Header" style={style}>
-            <h2 style={{marginLeft: '10px'}}>{title}</h2>
+            <h2 style={{ marginLeft: '10px' }}>{title}</h2>
             <SearchBar placeholder="Search" />
             {username != null && setCreatePost && (
                 <div id="create-post-btn" onClick={() => setCreatePost(true)}>
@@ -46,7 +46,7 @@ const Header = ({ title, style, setCreatePost }) => {
                 </div>
             )}
             {username == null && (
-                <Link to="/login" style={{textDecoration: 'none'}}>
+                <Link to="/login" style={{ textDecoration: 'none' }}>
                     <div id="create-post-btn">Login</div>
                 </Link>
             )}
@@ -73,19 +73,28 @@ const Header = ({ title, style, setCreatePost }) => {
                             top: '65px',
                             right: '10px',
                             backgroundColor: 'white',
-                            width: '100px',
+                            width: '150px',
                             boxShadow: '0 0 1px',
-                            padding: '10px',
+                            // padding: '10px',
                             display: 'flex',
                             flexDirection: 'column',
                         }}
                     >
-                        <Link to="/">Home</Link>
+                        <Link to="/" className="header-link">
+                            Home
+                        </Link>
                         {username != null && (
-                            <Link to={`/profile/${username}`}>Profile</Link>
+                            <Link
+                                to={`/profile/${username}`}
+                                className="header-link"
+                            >
+                                Profile
+                            </Link>
                         )}
                         {username != null && (
-                            <Link to="/settings">Settings</Link>
+                            <Link to="/settings" className="header-link">
+                                Settings
+                            </Link>
                         )}
                         {username != null && (
                             <Link
@@ -93,12 +102,21 @@ const Header = ({ title, style, setCreatePost }) => {
                                     logout();
                                     navigate(0, { replace: true });
                                 }}
+                                className="header-link"
                             >
                                 Logout
                             </Link>
                         )}
-                        {username == null && <Link to="/login">Login</Link>}
-                        {username == null && <Link to="/signup">Sign Up</Link>}
+                        {username == null && (
+                            <Link to="/login" className="header-link">
+                                Login
+                            </Link>
+                        )}
+                        {username == null && (
+                            <Link to="/signup" className="header-link">
+                                Sign Up
+                            </Link>
+                        )}
                     </div>
                 )}
             </div>
