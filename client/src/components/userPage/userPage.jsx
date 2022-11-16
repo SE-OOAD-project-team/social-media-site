@@ -14,6 +14,8 @@ import {
     unfollow_user,
 } from '../../api/api.js';
 
+import Header from '../header/Header';
+
 const UserPage = () => {
     const navigate = useNavigate();
     const { username } = useParams();
@@ -61,13 +63,11 @@ const UserPage = () => {
                 navigate('/notfound', { replace: true });
             }
         })();
-    }, []);
+    }, [username]);
 
     return (
         <>
-            <div className="AppName">
-                <h1>App Name</h1>
-            </div>
+            <Header title="Social Media Site" style={{ gridArea: 'a' }} />
 
             <div className="Profile">
                 <div className="alignProfile">
