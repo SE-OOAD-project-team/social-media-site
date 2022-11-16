@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 //schema for the database
 const PostSchema = new mongoose.Schema({  
     
-post:{
+// post:{
 
     // pic:String,
 
@@ -88,7 +88,7 @@ post:{
     }
 
      
-}
+// }
 
 )
 

@@ -24,7 +24,7 @@ const AppRouter = () => {
                 <Route path="*" element={<NotFound />} />
                 <Route path="/testgen" element={<GeneratePost />} />
                 <Route path="/notfound" element={<NotFound />} />
-                {/* <Route path="/home-feed" element={<HomeFeed />} /> */}
+                <Route path="/home-feed" element={<HomeFeed />} />
                 {/* <Route path="/capture" element={<Capture />} /> */}
             </Routes>
         </BrowserRouter>

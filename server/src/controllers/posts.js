@@ -29,39 +29,59 @@ let upload = multer({storage,fileFilter});
 
 let posts1={};
 //to get the body and save it in the database
-const PostInteraction =(upload.single('photo'),async(req,res)=>{
+// const PostInteraction =(upload.single('photo'),async(req,res)=>{
+const PostInteraction = async(req,res)=>{
 
-     posts1 = {
-        post:{
+    //  posts1 = {
+    //     post:{
 
-            pic:"req.body.post.pic",
+    //         pic:"req.body.post.pic",
         
-            likes:[{
-                names:"random_name",
-                likeCount:0, 
-            }],
+    //         likes:[{
+    //             names:"random_name",
+    //             likeCount:0, 
+    //         }],
         
-            comments: 
-               [{
-                    name:'random_name1',
+    //         comments: 
+    //            [{
+    //                 name:'random_name1',
          
-                    comment:"xyz",
+    //                 comment:"xyz",
         
-                    likeCount:[{
+    //                 likeCount:[{
                         
-                        names:"something",
+    //                     names:"something",
         
-                        likes:0
-                    }
-                    ]
+    //                     likes:0
+    //                 }
+    //                 ]
                         
                     
-               }]
-            }
-        }
+    //            }]
+    //         }
+    //     }
+
+    if(!req.file){
+        res.send("File not found.")
+        return;
+    }
+
+    posts1 = {
+        post_id: "ABC123",
+        user_details: {
+            name: req.body.username,
+            profile_pic: "hbcjnjdsnc",
+        },
+        desc: req.body.desc,
+        pic: req.file.filename,
+        comments: [],
+        likes_count: 0,
+        comments_count: 0,
+    }
+    console.log(posts1)
 
                                       
-    const Interaction = new PostSchema(req.body); //convert the request body into schema
+    const Interaction = new PostSchema(posts1); //convert the request body into schema
     
 
     try{
@@ -74,7 +94,7 @@ const PostInteraction =(upload.single('photo'),async(req,res)=>{
     }
     
 
-    );
+    // );
     
 
 
