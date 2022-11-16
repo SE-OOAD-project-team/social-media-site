@@ -46,7 +46,7 @@ const Header = ({ title, style, setCreatePost }) => {
                 </div>
             )}
             {username == null && (
-                <Link to="/login">
+                <Link to="/login" style={{textDecoration: 'none'}}>
                     <div id="create-post-btn">Login</div>
                 </Link>
             )}
@@ -58,8 +58,8 @@ const Header = ({ title, style, setCreatePost }) => {
                             : accountImage
                     }
                     style={{
-                        width: '48px',
-                        height: '48px',
+                        width: '40px',
+                        height: '40px',
                         borderRadius: '100%',
                         objectFit: 'cover',
                         cursor: 'pointer',
