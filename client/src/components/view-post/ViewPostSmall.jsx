@@ -9,7 +9,7 @@ function ViewPostSmall({seed, setViewFullPost}) {
     }
     return (
         <div className="vp-small-container" onClick={postClicked}>
-            <img className="vp-small-img" src={"https://picsum.photos/300/450?random=" + seed} />
+            <img className="vp-small-img" src={"https://picsum.photos/800/800?random=" + seed} />
             <div className="vp-small-info-container">
                 <div className="vp-small-profile-container">
                     <img className="vp-small-profile-pic" src="https://picsum.photos/30/30?random=2" />
