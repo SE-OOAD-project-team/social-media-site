@@ -9,7 +9,6 @@ import {
     login_required,
     edit_password,
 } from './auth.js';
-import posts_router from '../Routes/posts.js';
 import {
     get_profile,
     update_profile,
@@ -18,6 +17,9 @@ import {
     unfollow,
 } from './profile.js';
 import { search } from './search.js';
+
+import posts_router from '../Routes/posts.js';
+import recom_routes from "../Routes/recom.js"
 
 const multer_upload = multer({
     storage: multer.diskStorage({
@@ -52,7 +54,8 @@ router.post('/edit_password', login_required, edit_password);
 
 router.get('/search/:string', search);
 
-router.use('/post', posts_router);
+router.use("/createPost", posts_router);
+router.use("/getpost", recom_routes);
 
 router.get('/profile/:username', get_profile);
 router.post('/profile', login_required, update_profile);
