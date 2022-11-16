@@ -5,7 +5,9 @@ import mongoose from "mongoose";
 //schema for the database
 const PostSchema = new mongoose.Schema({  
     
+post:{
 
+    pic:String,
 
     likes:[{
         names:{
@@ -41,6 +43,7 @@ const PostSchema = new mongoose.Schema({
             
        }]
     }
+}
 
 )
 
