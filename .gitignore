@@ -119,3 +119,6 @@ yarn-error.log*
 
 .vscode/
 uploads/
+
+# in backend
+server/post-pics
