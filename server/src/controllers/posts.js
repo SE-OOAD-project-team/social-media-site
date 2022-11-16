@@ -33,30 +33,11 @@ const PostInteraction = async (req, res) => {
         name: res.locals.token_data.username,
         pic: req.file.filename,
         desc: req.body.desc,
-
-        likes: [
-            {
-                names: 'random_name',
-                likeCount: 0,
-            },
-        ],
-
-        comments: [
-            {
-                name: 'random_name1',
-
-                comment: 'xyz',
-
-                likeCount: [
-                    {
-                        names: 'something',
-
-                        likes: 0,
-                    },
-                ],
-            },
-        ],
-    };
+        pic: req.file.filename,
+        comments: [],
+        likes_count: 0,
+        comments_count: 0,
+    }
 
     const Interaction = new Post(post); //convert the request body into schema
 

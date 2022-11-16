@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
 //schema for the database
+
 const PostSchema = new mongoose.Schema({
     // pic:String,
 

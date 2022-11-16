@@ -4,13 +4,16 @@ import "./CreatePost.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import Capture from "./Capture";
+import axios from "axios";
 
 function CreatePost({setCreatePost}){
   const fileRef = useRef(null);
   const canvasRef = useRef(null);
+  const textareaRef = useRef(null);
   const [ hasUploadedImg, setHasUploadedImg ] = useState(false);
   const [ hasOpenedCamera, sethasOpenedCamera ] = useState(false);
   const [ imgObjectURL, setImgObjectURL ] = useState(null);
+  const [ imageFile, setImageFile ] = useState(null);
 
   // useEffect(() => {
   //   if(hasUploadedImg && imgObjectURL) {
@@ -26,10 +29,11 @@ function CreatePost({setCreatePost}){
   const handleSelectedImage = (img) => {
     // Things that need to be done on the image after uploading it
     console.log(img.name);
+    setImageFile(img)
     if(imgObjectURL !== null)
       URL.revokeObjectURL(imgObjectURL);
-      const img_obj_url = window.URL.createObjectURL(img)
-      console.log(img_obj_url)
+    const img_obj_url = window.URL.createObjectURL(img)
+    console.log(img_obj_url)
     setImgObjectURL(img_obj_url);
     
     setHasUploadedImg(true);
@@ -65,11 +69,36 @@ function CreatePost({setCreatePost}){
     setCreatePost(false);
   }
 
+  const submitPost = () => {
+    const formData = new FormData();
+    const username = localStorage.getItem("username");  // Fetching login
+    const desc = textareaRef.current.value;
+    formData.append('username', username);
+    formData.append('photo', imageFile);  // Because backend has file as photo
+    formData.append('desc', desc);
+
+
+    // console.log(formData)
+    // console.log(username)
+    // console.log(desc)
+    // console.log(imageFile)
+
+
+    axios.post("http://localhost:8000/createPost", formData)
+      .then(res => {
+        console.log(res.data)
+      })
+      .catch(err => {
+        console.log(err);
+      })
+    closeCreatePost();
+  }
+
   return (
     <div id="create-post-container">
       <p className="cp-heading">Create a post</p>
       <FontAwesomeIcon icon={faXmark} className="fa-icon-x-mark" onClick={closeCreatePost}/>
-      <textarea className="create-post-input" placeholder="Say something about it..." maxLength={100}></textarea>
+      <textarea className="create-post-input" placeholder="Say something about it..." maxLength={100} ref={textareaRef}></textarea>
       {/* Allow users to upload images here */}
       <input type="file" id="img-upload" name="img-upload" accept="image/png, image/jpeg" ref={fileRef} onChange={handleFileSelectorChange} />
       
@@ -96,7 +125,7 @@ function CreatePost({setCreatePost}){
       )}
 
       <div id="post-btn-container">
-        <div className="cp-btn">POST</div>
+        <div className="cp-btn" onClick={submitPost}>POST</div>
       </div>
     </div>  
   );
