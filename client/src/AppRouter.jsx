@@ -15,15 +15,15 @@ const AppRouter = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<App />} />
+                <Route path="/" element={<HomeFeed />} />
                 <Route path="/profile/:username" element={<UserPage />} />
                 <Route path="/settings" element={<Settings />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="*" element={<NotFound />} />
-                <Route path="notfound" element={<NotFound />} />
-                <Route path="/home-feed" element={<HomeFeed />} />
-                <Route path="/capture" element={<Capture />} />
+                <Route path="/notfound" element={<NotFound />} />
+                {/* <Route path="/home-feed" element={<HomeFeed />} /> */}
+                {/* <Route path="/capture" element={<Capture />} /> */}
             </Routes>
         </BrowserRouter>
     );

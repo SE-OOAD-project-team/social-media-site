@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 
 import { Link, useNavigate } from 'react-router-dom';
 
-import "./Header.css";
+import './Header.css';
 
 import { join_path, get_profile, logout } from '../../api/api.js';
 import { server_uri } from '../../index.js';
@@ -40,7 +40,16 @@ const Header = ({ title, style, setCreatePost }) => {
         <header className="Header" style={style}>
             <h2>{title}</h2>
             <SearchBar placeholder="Search" />
-            <div id="create-post-btn" onClick={() => setCreatePost(true)}>Create a Post</div>
+            {username != null && setCreatePost && (
+                <div id="create-post-btn" onClick={() => setCreatePost(true)}>
+                    Create a Post
+                </div>
+            )}
+            {username == null && (
+                <Link to="/login">
+                    <div id="create-post-btn">Login</div>
+                </Link>
+            )}
             <div onClick={() => setSelected(!selected)}>
                 <img
                     src={
