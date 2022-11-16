@@ -1,9 +1,9 @@
-import PostInteraction from "../controllers/posts.js";
-import express from "express";
+import { PostInteraction, upload_single } from '../controllers/posts.js';
+import express from 'express';
 const router = express.Router();
-
+import { login_required } from '../api/auth.js';
 
 //routing the path
-router.post("/",PostInteraction);
+router.post('/', login_required, upload_single, PostInteraction);
 
-export default router
+export default router;
