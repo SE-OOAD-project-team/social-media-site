@@ -6,11 +6,11 @@ import ProfileSettings from './Profile';
 import PasswordSettings from './Password.jsx';
 import FollowingSettings from './Following.jsx';
 
-import homeImage from '../../assets/home.svg';
+import Header from '../header/Header';
 
 import style from './Settings.module.css';
 
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Settings = () => {
     const navigate = useNavigate();
@@ -19,7 +19,7 @@ const Settings = () => {
 
     useEffect(() => {
         if (username == null) {
-            navigate('/login');
+            navigate('/login', { replace: true });
         }
     });
 
@@ -34,12 +34,7 @@ const Settings = () => {
 
     return (
         <div className={`${style.Container}`}>
-            <header className={style.Header} style={{ gridArea: 'a' }}>
-                <h1>Settings</h1>
-                <Link to="/">
-                    <img style={{ width: '36px' }} src={homeImage} alt="Home" />
-                </Link>
-            </header>
+            <Header title="Settings" style={{ gridArea: 'a' }} />
             <Sidebar
                 style={{ gridArea: 'b' }}
                 tabs={tabs}

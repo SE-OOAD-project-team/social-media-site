@@ -11,7 +11,7 @@
     width: clamp(60vmin, 400px, 100vmin);
     box-sizing: border-box;
     padding: 30px;
-    background-color: whitesmoke;
+    /* background-color: whitesmoke; */
 
     aspect-ratio: auto 4 / 3;
 }
