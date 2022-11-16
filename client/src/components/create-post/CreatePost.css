@@ -1,0 +1,97 @@
+#create-post-container {
+    padding: 20px 10px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: white;
+    width: 600px;
+
+    --create-post-component-width: 90%;
+    --create-post-component-padding: 10px;
+    --create-post-component-margin: 5px;
+    --create-post-btn-padding: 5px 10px;
+}
+
+.cp-heading {
+  font-size: 1.5em;
+}
+
+#post-btn-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: var(--create-post-component-width);
+    padding: var(--create-post-component-padding);
+}
+
+textarea {
+    outline: none;
+    resize: none;
+    overflow: auto;
+    height: 100px;
+    width: var(--create-post-component-width);
+}
+
+.create-post-input {
+    width: var(--create-post-component-width);
+    padding: var(--create-post-component-padding);
+    margin: var(--create-post-component-margin);
+    outline: none;
+    height: 30px;
+}
+
+#img-upload {
+  display: none;
+}
+
+.cp-drop-zone {
+  position: relative;
+  padding: var(--create-post-component-padding);
+  width: var(--create-post-component-width);
+  height: 300px;
+  border: 1px dashed black;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.cp-img-upload-box-note {
+  position: absolute;
+  bottom: 10px;
+  font-size: 0.7em;
+}
+
+.cp-canvas {
+  width: var(--create-post-component-width);
+}
+
+.cp-btn {
+  cursor: pointer;
+  padding: var(--create-post-btn-padding);
+  width: 20%;
+  border-radius: 10px;
+  text-align: center;
+  background-color: rgba(255, 0, 0, 0.6);
+  color: white;
+}
+
+.cp-btn:hover {
+  background-color: pink;
+}
+
+#cp-preview-img {
+  width: 300px;
+  height: 450px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.cp-capture-container {
+  width: var(--create-post-component-width)
+}

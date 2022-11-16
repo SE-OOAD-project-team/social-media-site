@@ -1,8 +1,8 @@
 import express from 'express';
 import path from 'path';
 import cors from 'cors';
+import morgan from 'morgan';
 import mongoose from 'mongoose';
-import pageRoute from "../Routes/POSTS.js"
 
 import dotenv from 'dotenv';
 
@@ -14,26 +14,28 @@ console.log(
         `PORT=${process.env.PORT}`,
         `MONGO_URI=${process.env.MONGO_URI}`,
         `TOKEN_KEY=${process.env.TOKEN_KEY}`,
+        `UPLOAD_FOLDER=${process.env.UPLOAD_FOLDER}`,
     ].join('\n')
 );
 
+const api_router = (await import('./api/api.js')).default;
+
 const app = express();
 
-//middlewares
 app.use(cors());
-app.use(express.json())
+app.use(morgan('dev'));
 
 mongoose.connect(process.env.MONGO_URI);
-mongoose.connection.on("connected", ()=>{
-    console.log("connected")
-})
 
+mongoose.connection.on('connected', () => console.log('mongoose connected'));
+mongoose.connection.on('error', (err) => console.log('mongoose error:', err.message));
+mongoose.connection.on('disconnected', () => console.log('mongoose disconnected'));
 
-mongoose.connection.on('error', err => console.log(err));
+app.use('/api', api_router);
 
-mongoose.connection.on("disconnected", ()=>{
-    console.log("disconnected")
-}) 
+if (process.env.UPLOAD_FOLDER) {
+    app.use('/image', express.static(path.resolve(process.env.UPLOAD_FOLDER)));
+}
 
 // if a path is specified in args, serve index.html from there
 if (process.argv[2]) {
@@ -41,12 +43,10 @@ if (process.argv[2]) {
     console.log(indexPath);
 
     app.use(express.static(process.argv[2]));
+
+    // '/*' must be matched last
     app.get('/*', (req, res) => res.sendFile(indexPath));
 }
-
-
-//middleware
-app.use("/", pageRoute)
 
 const port = parseInt(process.env.PORT);
 const server = app.listen(port, () =>

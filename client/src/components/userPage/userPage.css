@@ -1,14 +1,10 @@
-body{
-    background-color: rgb(251, 251, 251);
-}
-
 .userPic{
     border-radius: 50%;
     height:200px;
     width:200px;
     margin-top:2vh;
     box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.2), 0 8px 20px 0 rgba(0, 0, 0, 0.19);
- 
+    object-fit: cover;
 
   
 }
@@ -78,6 +74,7 @@ body{
 .userDetM{
     display: flex;
     gap: 0.8vw;
+    justify-content: space-around;
     
 }
 
