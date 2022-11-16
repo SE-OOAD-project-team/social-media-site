@@ -80,6 +80,7 @@ function CreatePost({setCreatePost}){
           <p>Click here to upload an image</p>
           <p className="cp-img-upload-box-note">Note: Aspect Ratio Expected is 2:3</p>
         </div>
+        <p>OR</p>
         <div className="cp-open-camera-btn" onClick={() => sethasOpenedCamera(true)}>click here to open your camera</div>
       </>)}
 
