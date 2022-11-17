@@ -5,7 +5,13 @@ import ViewPost from '../view-post/ViewPost';
 import Header from '../header/Header';
 import CreatePost from '../create-post/CreatePost';
 
+import { Navigate } from 'react-router-dom';
+
 function HomeFeed() {
+    if (localStorage.getItem('username') == null) {
+        return <Navigate to="/login" />;
+    }
+
     const [viewFullPost, setViewFullPost] = useState(false);
     const [createPost, setCreatePost] = useState(false);
 
