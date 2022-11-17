@@ -7,6 +7,20 @@
     /* border-bottom: 1px solid lightgrey; */
 }
 
+.header-link {
+    text-decoration: none;
+    color: black;
+    padding: 15px 20px;
+}
+
+/* .header-link + .header-link {
+    border-top: 1px solid lightgrey;
+} */
+
+.header-link:hover {
+    background-color: rgb(236, 236, 236);
+}
+
 #header-container {
     width: 90%;
     padding: 10px 5%;
