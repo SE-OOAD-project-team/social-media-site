@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './HomeFeed.css';
 import ViewPostSmall from '../view-post/ViewPostSmall';
 import ViewPost from '../view-post/ViewPost';
@@ -17,19 +17,26 @@ function HomeFeed() {
 
     const [posts, setPosts] = useState([]);
 
+    useEffect(() => {
+        (async () => {
+            const res = await fetch('http://localhost:8000/api/getallposts');
+            const json = await res.json();
+
+            setPosts(json);
+        })();
+    }, []);
+
     return (
         <>
             <Header title="Social Media Site" setCreatePost={setCreatePost} />
             <div id="home-feed-container">
                 <div id="home-feed-post-container">
-                    <ViewPostSmall seed={1} setViewFullPost={setViewFullPost} />
-                    <ViewPostSmall seed={2} setViewFullPost={setViewFullPost} />
-                    <ViewPostSmall seed={3} setViewFullPost={setViewFullPost} />
-                    <ViewPostSmall seed={4} setViewFullPost={setViewFullPost} />
-                    <ViewPostSmall seed={5} setViewFullPost={setViewFullPost} />
-                    <ViewPostSmall seed={6} setViewFullPost={setViewFullPost} />
-                    <ViewPostSmall seed={7} setViewFullPost={setViewFullPost} />
-                    <ViewPostSmall seed={8} setViewFullPost={setViewFullPost} />
+                    {posts.map((post_id) => (
+                        <ViewPostSmall
+                            post_id={post_id}
+                            setViewFullPost={setViewFullPost}
+                        />
+                    ))}
                 </div>
                 {/* Replace the one below with show more insted of home feed loader */}
                 <div className="home-feed-loader"></div>
