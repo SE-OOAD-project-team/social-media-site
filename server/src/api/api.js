@@ -81,7 +81,7 @@ router.get('/abc', (req, res) => {
 
 // Error handler
 router.use((err, req, res, next) => {
-    res.status(400).send({ status: 'Failed', reason: err.message, a: 99 });
+    res.status(400).send({ status: 'Failed', reason: err.message });
 });
 
 export default router;
