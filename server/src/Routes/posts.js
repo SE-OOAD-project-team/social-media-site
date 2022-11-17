@@ -1,15 +1,24 @@
-import multer from 'multer';
 import PostInteraction from '../controllers/posts.js';
 import express from 'express';
 const router = express.Router();
 
 import PostSchema from '../models/posts.js';
+import User from '../models/user.js';
 
+import { login_required } from '../api/auth.js';
 import multer_upload from '../lib/multer_upload.js';
 // const multer_upload = multer({ dest: 'post-pics/' })
 
+router.get('/:post_id', async(req, res) => {
+    const post = await PostSchema.findOne({_id: req.params.post_id});
+
+    if (post != null) {
+        res.send(post);
+    }
+})
+
 //routing the path
-router.post('/', multer_upload.single('photo'), async (req, res) => {
+router.post('/', login_required, multer_upload.single('photo'), async (req, res) => {
     console.log('Here!!');
     if (!req.file) {
         res.send('File not found.');
@@ -17,11 +26,13 @@ router.post('/', multer_upload.single('photo'), async (req, res) => {
     }
     console.log(req.file);
 
+    const user = await User.findOne({username: res.locals.token_data.username});
+
     const posts1 = {
-        post_id: 'ABC123',
         user_details: {
-            name: req.body.username,
-            profile_pic: 'hbcjnjdsnc',
+            displayName: user.displayName,
+            name: user.username,
+            profile_pic: user.picture,
         },
         desc: req.body.desc,
         pic: req.file.filename,
@@ -35,6 +46,8 @@ router.post('/', multer_upload.single('photo'), async (req, res) => {
 
     try {
         const newInteraction = await Interaction.save(); //save the schema in mongodb
+        user.posts.push(Interaction._id);
+        await user.save();
         res.status.json(newInteraction);
     } catch (err) {
         console.log(err);
