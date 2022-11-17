@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 
 import './userPage.css';
+import '../home-feed/HomeFeed.css';
 import accountImage from '../../assets/account.svg';
 
 import { server_uri } from '../../index.js';
@@ -15,12 +16,18 @@ import {
 } from '../../api/api.js';
 
 import Header from '../header/Header';
+import ViewPostSmall from '../view-post/ViewPostSmall';
+import ViewPost from '../view-post/ViewPost';
+import CreatePost from '../create-post/CreatePost';
 
 const UserPage = () => {
     const navigate = useNavigate();
     const { username } = useParams();
 
     const [profile, setProfile] = useState({});
+
+    const [viewFullPost, setViewFullPost] = useState(false);
+    const [createPost, setCreatePost] = useState(false);
 
     const current_username = window.localStorage.getItem('username');
 
@@ -67,7 +74,7 @@ const UserPage = () => {
 
     return (
         <>
-            <Header title="Social Media Site" style={{ gridArea: 'a' }} />
+            <Header title="Social Media Site" style={{ gridArea: 'a' }}  setCreatePost={setCreatePost}/>
 
             <div className="Profile">
                 <div className="alignProfile">
@@ -138,8 +145,28 @@ const UserPage = () => {
             <div className="divider1"></div>
 
             <div className="posts">
-                <h1 className="postTitle">Your Posts</h1>
+                <h1 className="postTitle">Posts</h1>
+                <div id="home-feed-post-container">
+                    {profile.posts && profile.posts.map((post_id) => (
+                        <ViewPostSmall
+                            post_id={post_id}
+                            setViewFullPost={setViewFullPost}
+                        />
+                    ))}
+                </div>
             </div>
+
+            {viewFullPost && (
+                <div id="home-feed-vp-full-container">
+                    <ViewPost setViewFullPost={setViewFullPost} />
+                </div>
+            )}
+
+            {createPost && (
+                <div id="home-feed-vp-full-container">
+                    <CreatePost setCreatePost={setCreatePost} />
+                </div>
+            )}
         </>
     );
 };
