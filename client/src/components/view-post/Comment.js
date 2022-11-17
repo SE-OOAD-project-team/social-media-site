@@ -10,7 +10,7 @@ function Comment ({data}) {
     return (
         <div className="comment-container">
             <div className="comment-profile-container">
-                <img className="comment-profile-pic" src={data.profile_pic} />
+                <img className="comment-profile-pic" src={"https://picsum.photos/30/30?random=3"} />  
                 <p className="comment-profile-name">{data.name}</p>
             </div>
             <p className="comment-comment">{data.comment}</p>

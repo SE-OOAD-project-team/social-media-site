@@ -3,9 +3,11 @@ import { useState, useEffect } from 'react';
 import './ViewPostSmall.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faComment } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
 
-function ViewPostSmall({ post_id, seed, setViewFullPost }) {
-    const [post, setPost] = useState([]);
+function ViewPostSmall({ post_id, seed, setViewFullPost, setViewFullPostId }) {
+    const [post, setPost] = useState(null);
+    const [ postLiked, setPostLiked ] = useState(false);
 
     useEffect(() => {
         (async () => {
@@ -13,14 +15,40 @@ function ViewPostSmall({ post_id, seed, setViewFullPost }) {
             const json = await res.json();
 
             setPost(json);
+            
         })();
-    }, []);
+    }, [postLiked]);
 
     const postClicked = () => {
         setViewFullPost(true);
+        setViewFullPostId(post_id);
     };
+
+    const likePost = async(e) => {
+        if(postLiked === false){
+            const user = localStorage.getItem("username");
+            const post_id = post._id;
+            const obj = {
+                user: user,
+                post_id: post_id,
+            };
+            try{
+                await axios.post("http://localhost:8000/api/incLike", obj)
+            }
+            catch(err){
+                console.log(err);
+            }
+            // .then(res => {console.log(res)})
+            // .catch(err => { console.log(err)})
+
+            setPostLiked(true);
+        }
+        setViewFullPost(false);
+        e.preventDefault();
+    }
+
     return (
-        <div className="vp-small-container" onClick={postClicked}>
+        post && (<div className="vp-small-container" onClick={postClicked} onDoubleClick={likePost}>
             <img
                 className="vp-small-img"
                 src={`http://localhost:8000/image/${post.pic}`}
@@ -29,7 +57,8 @@ function ViewPostSmall({ post_id, seed, setViewFullPost }) {
                 <div className="vp-small-profile-container">
                     <img
                         className="vp-small-profile-pic"
-                        src="https://picsum.photos/30/30?random=2"
+                        // src={`http://localhost:8000/image/${post.user_details.profile_pic}`}
+                        src={"https://picsum.photos/300/450"}
                     />
                     <p>{post.user_details && post.user_details.name}</p>
                 </div>
@@ -38,6 +67,7 @@ function ViewPostSmall({ post_id, seed, setViewFullPost }) {
                         <FontAwesomeIcon
                             icon={faHeart}
                             className="fa-icon-heart"
+                            onClick={likePost}
                         />
                         <p>{post.likes_count}</p>
                     </div>
@@ -50,7 +80,7 @@ function ViewPostSmall({ post_id, seed, setViewFullPost }) {
                     </div>
                 </div>
             </div>
-        </div>
+        </div>)
     );
 }
 

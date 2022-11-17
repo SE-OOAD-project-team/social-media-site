@@ -14,7 +14,7 @@ function HomeFeed() {
 
     const [viewFullPost, setViewFullPost] = useState(false);
     const [createPost, setCreatePost] = useState(false);
-
+    const [viewFullPostId, setViewFullPostId ] = useState(null);
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
@@ -35,14 +35,15 @@ function HomeFeed() {
                         <ViewPostSmall
                             post_id={post_id}
                             setViewFullPost={setViewFullPost}
+                            setViewFullPostId={setViewFullPostId}
                         />
                     ))}
                 </div>
                 {/* Replace the one below with show more insted of home feed loader */}
-                <div className="home-feed-loader"></div>
-                {viewFullPost && (
+                {/* <div className="home-feed-loader"></div> */}
+                {viewFullPost && viewFullPostId && (
                     <div id="home-feed-vp-full-container">
-                        <ViewPost setViewFullPost={setViewFullPost} />
+                        <ViewPost setViewFullPost={setViewFullPost} viewFullPostId={viewFullPostId}/>
                     </div>
                 )}
 
