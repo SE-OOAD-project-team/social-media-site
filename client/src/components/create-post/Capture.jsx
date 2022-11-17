@@ -30,7 +30,7 @@ function Capture() {
         async function create_or_delete_stream(){
             if(imgSrc === null){
                 try {
-                    const _stream = await navigator.mediaDevices.getUserMedia({video: true, audio: false});
+                    const _stream = await navigator.mediaDevices.getUserMedia({video: {width, height}, audio: false});
                     setStream(_stream)
                     videoRef.current.srcObject = _stream;
                     videoRef.current.play();
@@ -104,7 +104,7 @@ function Capture() {
             {imgSrc === null && (
             <>
                 {/* <div id="capture-video-container"> */}
-                    <video id="capture-video" ref={videoRef} onCanPlay={handleCanPlay}>Video stream not available.</video>
+                    <video id="capture-video" ref={videoRef} onCanPlay={handleCanPlay} width={width} height={height}>Video stream not available.</video>
                     {/* <div id="capture-video-frame"></div> */}
                 {/* </div> */}
                 <div id="capture-btn" ref={startBtnRef} onClick={takePicture}>Capture Photo</div>
