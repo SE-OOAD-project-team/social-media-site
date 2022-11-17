@@ -1,6 +1,6 @@
 import express from 'express';
-import path from 'path';
-import multer from 'multer';
+
+import multer_upload from '../lib/multer_upload.js';
 
 import {
     login,
@@ -21,27 +21,6 @@ import { search } from './search.js';
 import posts_router from '../Routes/posts.js';
 import recom_routes from "../Routes/recom.js"
 
-const multer_upload = multer({
-    storage: multer.diskStorage({
-        destination: (req, file, cb) => {
-            cb(null, path.resolve(process.env.UPLOAD_FOLDER));
-        },
-        filename: (req, file, cb) => {
-            const unique_name =
-                Date.now() + '-' + Math.round(Math.random() * 1e9);
-            let extArray = file.mimetype.split('/');
-            let extension = extArray[extArray.length - 1];
-            cb(null, unique_name + '.' + extension);
-        },
-    }),
-    fileFilter: (req, file, cb) => {
-        if (!['image/png', 'image/jpeg', 'image/jpg'].includes(file.mimetype)) {
-            return cb(new Error('Only images allowed'));
-        }
-
-        cb(null, true);
-    },
-});
 
 const router = express.Router();
 
