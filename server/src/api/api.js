@@ -2,6 +2,9 @@ import express from 'express';
 
 import multer_upload from '../lib/multer_upload.js';
 
+
+import comments from '../controllers/comments.js';
+
 import {
     login,
     signup,
@@ -20,6 +23,7 @@ import { search } from './search.js';
 
 import posts_router from '../Routes/posts.js';
 import recom_routes from "../Routes/recom.js"
+import likes from '../controllers/likes.js';
 
 
 const router = express.Router();
@@ -46,6 +50,8 @@ router.post(
 );
 router.post('/follow', login_required, follow);
 router.post('/unfollow', login_required, unfollow);
+router.post("/postComment", comments)
+router.post("/incLike", likes)
 
 // Routes for testing, will be removed later
 router.get('/xyz', login_required, (req, res) => {
@@ -57,6 +63,10 @@ router.get('/abc', (req, res) => {
     console.log('Token:', res.locals.token_data);
     res.send({ status: 'Success', data: 'Login optional' });
 });
+
+
+router.get("/postComment", comments)
+
 
 // Error handler
 router.use((err, req, res, next) => {
