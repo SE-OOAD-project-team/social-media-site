@@ -33,8 +33,8 @@ router.post('/edit_password', login_required, edit_password);
 
 router.get('/search/:string', search);
 
-router.use("/createPost", posts_router);
-router.use("/getpost", recom_routes);
+router.use("/post", posts_router);
+router.use("/getallposts", recom_routes);
 
 router.get('/profile/:username', get_profile);
 router.post('/profile', login_required, update_profile);
