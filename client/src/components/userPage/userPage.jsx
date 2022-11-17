@@ -26,6 +26,7 @@ const UserPage = () => {
 
     const [profile, setProfile] = useState({});
 
+    const [viewFullPostId, setViewFullPostId ] = useState(null);
     const [viewFullPost, setViewFullPost] = useState(false);
     const [createPost, setCreatePost] = useState(false);
 
@@ -150,6 +151,7 @@ const UserPage = () => {
                     {profile.posts && profile.posts.map((post_id) => (
                         <ViewPostSmall
                             post_id={post_id}
+                            setViewFullPostId={setViewFullPostId}
                             setViewFullPost={setViewFullPost}
                         />
                     ))}
@@ -158,7 +160,7 @@ const UserPage = () => {
 
             {viewFullPost && (
                 <div id="home-feed-vp-full-container">
-                    <ViewPost setViewFullPost={setViewFullPost} />
+                    <ViewPost setViewFullPost={setViewFullPost} viewFullPostId={viewFullPostId} />
                 </div>
             )}
 
