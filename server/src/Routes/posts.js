@@ -9,7 +9,7 @@ import { login_required } from '../api/auth.js';
 import multer_upload from '../lib/multer_upload.js';
 // const multer_upload = multer({ dest: 'post-pics/' })
 
-router.get('/:post_id', async(req, res) => {
+router.get('/get/:post_id', async(req, res) => {
     const post = await PostSchema.findOne({_id: req.params.post_id});
 
     if (post != null) {
@@ -18,7 +18,7 @@ router.get('/:post_id', async(req, res) => {
 })
 
 //routing the path
-router.post('/', login_required, multer_upload.single('photo'), async (req, res) => {
+router.post('/create', login_required, multer_upload.single('photo'), async (req, res) => {
     console.log('Here!!');
     if (!req.file) {
         res.send('File not found.');

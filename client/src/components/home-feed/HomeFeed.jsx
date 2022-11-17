@@ -15,6 +15,8 @@ function HomeFeed() {
     const [viewFullPost, setViewFullPost] = useState(false);
     const [createPost, setCreatePost] = useState(false);
 
+    const [posts, setPosts] = useState([]);
+
     return (
         <>
             <Header title="Social Media Site" setCreatePost={setCreatePost} />

@@ -1,8 +1,7 @@
 import postSchema from "../models/posts.js"
 
-let result = {};
-const recommendation = (req,res)=>{
-    result = postSchema.find({});
+const recommendation = async(req,res)=>{
+    const result = (await postSchema.find({})).map(post => post._id);
     res.send(result);
 }
 

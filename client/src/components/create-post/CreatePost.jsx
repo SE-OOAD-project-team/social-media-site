@@ -84,7 +84,7 @@ function CreatePost({setCreatePost}){
     // console.log(imageFile)
 
 
-    axios.post("http://localhost:8000/api/createPost", formData, {headers: {'Authorization': `Bearer ${window.localStorage.getItem('token')}`}})
+    axios.post("http://localhost:8000/api/post/create", formData, {headers: {'Authorization': `Bearer ${window.localStorage.getItem('token')}`}})
       .then(res => {
         console.log(res.data)
       })
