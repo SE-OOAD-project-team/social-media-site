@@ -1,8 +1,12 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
+
+
 
 //schema for the database
+const PostSchema = new mongoose.Schema({  
+    
+// post:{
 
-const PostSchema = new mongoose.Schema({
     // pic:String,
 
     // likes:[{
@@ -25,7 +29,7 @@ const PostSchema = new mongoose.Schema({
     //         },
 
     //         likeCount:[{
-
+                
     //             names:{
     //                 type:String
     //             },
@@ -35,41 +39,57 @@ const PostSchema = new mongoose.Schema({
     //             }
     //         }
     //         ]
-
+                
+            
     //    }]
 
-    name: {
-            type: String,
+    post_id:{
+        type:String,
+        required:true
+    },
+
+    user_details:{
+        name:{
+            type:String
         },
-    desc: {
-        type: String,
+        profile_pic:{
+            type:String
+        }
+    },
+    desc:{
+        type:String,
     },
 
-    pic: {
-        type: String,
+    pic:{
+        type:String
     },
 
-    comments: [
-        {
-            name: {
-                type: String,
-            },
-            profile_pic: {
-                type: String,
-            },
-            comment: {
-                type: String,
-            },
+    comments:[{
+
+        name:{
+            type:String
         },
-    ],
+        profile_pic:{
+            type:String
+        },
+        comment:{
+            type:String
+        }
+    
+    }],
 
-    likes_count: {
-        type: Number,
+    likes_count:{
+        type:Number
     },
 
-    comments_count: {
-        type: Number,
-    },
-});
+    comments_count:{
+        type:Number
+    }
+    }
 
-export default mongoose.model('posts', PostSchema);
+     
+// }
+
+)
+
+export default mongoose.model("posts",PostSchema);
