@@ -67,11 +67,7 @@ const PostInteraction = async(req,res)=>{
     }
 
     posts1 = {
-        post_id: "ABC123",
-        user_details: {
-            name: req.body.username,
-            profile_pic: "hbcjnjdsnc",
-        },
+        username: req.body.username,
         desc: req.body.desc,
         pic: req.file.filename,
         comments: [],

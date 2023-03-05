@@ -60,7 +60,7 @@ function ViewPostSmall({ post_id, seed, setViewFullPost, setViewFullPostId }) {
                         // src={`http://localhost:8000/image/${post.user_details.profile_pic}`}
                         src={"https://picsum.photos/300/450"}
                     />
-                    <p>{post.user_details && post.user_details.name}</p>
+                    <p>{post.username}</p>
                 </div>
                 <div className="vp-small-interactions-container">
                     <div className="vp-small-like-container">

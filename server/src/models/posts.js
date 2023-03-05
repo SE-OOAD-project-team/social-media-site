@@ -1,95 +1,39 @@
-import mongoose from "mongoose";
-
-
+import mongoose from 'mongoose';
 
 //schema for the database
-const PostSchema = new mongoose.Schema({  
-    
-// post:{
+const PostSchema = new mongoose.Schema(
+	{
+		username: {
+			type: String,
+		},
 
-    // pic:String,
+		desc: {
+			type: String,
+		},
 
-    // likes:[{
-    //     names:{
-    //         type:String
-    //     },
-    //     likeCount:{
-    //         type:Number
-    //     }
-    // }],
+		pic: {
+			type: String,
+		},
 
-    // comments:
-    //    [{
-    //         name:{
-    //             type:String
-    //         },
+		comments: [
+			{
+				username: {
+					type: String,
+				},
+				comment: {
+					type: String,
+				},
+			},
+		],
 
-    //         comment:{
-    //             type:String
-    //         },
+		likes_count: {
+			type: Number,
+		},
 
-    //         likeCount:[{
-                
-    //             names:{
-    //                 type:String
-    //             },
+		comments_count: {
+			type: Number,
+		},
+	}
+);
 
-    //             likes:{
-    //                 type:Number
-    //             }
-    //         }
-    //         ]
-                
-            
-    //    }]
-
-    // post_id:{
-    //     type:String,
-    //     required:true
-    // },
-
-    user_details:{
-        name:{
-            type:String
-        },
-        profile_pic:{
-            type:String
-        }
-    },
-    desc:{
-        type:String,
-    },
-
-    pic:{
-        type:String
-    },
-
-    comments:[{
-
-        name:{
-            type:String
-        },
-        profile_pic:{
-            type:String
-        },
-        comment:{
-            type:String
-        }
-    
-    }],
-
-    likes_count:{
-        type:Number
-    },
-
-    comments_count:{
-        type:Number
-    }
-    }
-
-     
-// }
-
-)
-
-export default mongoose.model("posts",PostSchema);
+export default mongoose.model('posts', PostSchema);
