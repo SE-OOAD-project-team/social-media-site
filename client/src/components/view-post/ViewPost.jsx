@@ -81,7 +81,7 @@ function ViewPost({setViewFullPost, viewFullPostId}) {
         <div className="view-post-container">
             <div className="view-post-user-details-container">
                 <img className="view-post-user-profile-pic" src={"https://picsum.photos/30/30?random=2"} alt="profile-pic" />
-                <p className="view-post-user-name">{post.user_details && post.user_details.name}</p>
+                <p className="view-post-user-name">{post.username}</p>
             </div>
             <div className="view-post-img-container">
                 <img className="view-post-pic" src={`http://localhost:8000/image/${post.pic}`} alt="post-pic" />

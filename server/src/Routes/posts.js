@@ -30,7 +30,7 @@ router.post(
     login_required,
     multer_upload.single('photo'),
     async (req, res) => {
-        console.log('Here!!');
+        // console.log('Here!!');
         if (!req.file) {
             res.send('File not found.');
             return;
@@ -42,11 +42,7 @@ router.post(
         });
 
         const posts1 = {
-            user_details: {
-                displayName: user.displayName,
-                name: user.username,
-                profile_pic: user.picture,
-            },
+            username: user.username,
             desc: req.body.desc,
             pic: req.file.filename,
             comments: [],
@@ -61,7 +57,7 @@ router.post(
             const newInteraction = await Interaction.save(); //save the schema in mongodb
             user.posts.push(Interaction._id);
             await user.save();
-            res.status.json(newInteraction);
+            res.status(200).json(newInteraction);
         } catch (err) {
             console.log(err);
             res.send(err);
