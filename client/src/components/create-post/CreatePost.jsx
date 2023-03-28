@@ -15,6 +15,8 @@ function CreatePost({setCreatePost}){
   const [ imgObjectURL, setImgObjectURL ] = useState(null);
   const [ imageFile, setImageFile ] = useState(null);
 
+  // imageFile stores the data in form of a File. This is then uploaded to the server via formData
+
   // useEffect(() => {
   //   if(hasUploadedImg && imgObjectURL) {
   //     // Displaying the image on canvas and enabling cropping and editing the image.
@@ -28,7 +30,7 @@ function CreatePost({setCreatePost}){
 
   const handleSelectedImage = (img) => {
     // Things that need to be done on the image after uploading it
-    console.log(img.name);
+    console.log(img);
     setImageFile(img)
     if(imgObjectURL !== null)
       URL.revokeObjectURL(imgObjectURL);
@@ -102,6 +104,7 @@ function CreatePost({setCreatePost}){
       {/* Allow users to upload images here */}
       <input type="file" id="img-upload" name="img-upload" accept="image/png, image/jpeg" ref={fileRef} onChange={handleFileSelectorChange} />
       
+      {/* Uploading image via image drop */}
       {(hasUploadedImg === false && hasOpenedCamera === false) && (<>
         <div className="cp-drop-zone" onClick={handleFileBtnClick} onDragEnter={stopDefault} onDragOver={stopDefault} onDrop={handleFileDrop}>
           <p>Drag and drop your image here</p>
@@ -113,13 +116,16 @@ function CreatePost({setCreatePost}){
         <div className="cp-open-camera-btn" onClick={() => sethasOpenedCamera(true)}>click here to open your camera</div>
       </>)}
 
+      {/* Uploading image via camera */}
       {(hasUploadedImg === false && hasOpenedCamera === true) && (
         <div className="cp-capture-container">
-          <Capture />
+          <Capture setImageFile={setImageFile} imgObjectURL={imgObjectURL} setImgObjectURL={setImgObjectURL} setHasUploadedImg={setHasUploadedImg} />
         </div>
       )}
 
-      {(hasUploadedImg === true && hasOpenedCamera === false) && (
+      {/* Preview of image uploaded via image drop */}
+      {/* {(hasUploadedImg === true && hasOpenedCamera === false) && ( */}
+      {(hasUploadedImg === true) && (
         <img id="cp-preview-img" src={imgObjectURL} />  // This works!!
         // <canvas id="cp-canvas" ref={canvasRef}></canvas>
       )}
