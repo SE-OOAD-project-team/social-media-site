@@ -22,7 +22,7 @@ function HomeFeed() {
 
     useEffect(() => {
         (async () => {
-            const res = await fetch(join_path(server_v2_uri, 'api/v2', 'getallposts'));
+            const res = await fetch(join_path(server_v2_uri, 'api/v2', `recommendations?username=${localStorage.getItem('username')}`));
             const json = await res.json();
 
             setPosts(json);
