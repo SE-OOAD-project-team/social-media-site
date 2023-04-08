@@ -8,6 +8,7 @@ import ReactDOM from 'react-dom/client';
 import AppRouter from './AppRouter.jsx';
 
 let server_uri = process.env.REACT_APP_API_URI;
+let server_v2_uri = process.env.REACT_APP_API_V2_URI;
 if (process.env.REACT_APP_API_URI === '/') {
     let pos = -1;
     for (let i = 0; i < 3; i += 1) {
@@ -21,6 +22,7 @@ console.log(
         `NODE_ENV=${process.env.NODE_ENV}`,
         `API_URI=${process.env.REACT_APP_API_URI}`,
         `server_uri=${server_uri}`,
+        `server_v2_uri=${server_v2_uri}`,
     ].join('\n')
 );
 
@@ -36,4 +38,4 @@ root.render(
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
 
-export { server_uri };
+export { server_uri, server_v2_uri };
