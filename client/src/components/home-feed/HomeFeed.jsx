@@ -6,6 +6,9 @@ import Header from '../header/Header';
 import CreatePost from '../create-post/CreatePost';
 
 import { Navigate } from 'react-router-dom';
+import { join_path } from '../../api/api';
+
+import { server_v2_uri } from '../../index.js';
 
 function HomeFeed() {
     if (localStorage.getItem('username') == null) {
@@ -19,7 +22,7 @@ function HomeFeed() {
 
     useEffect(() => {
         (async () => {
-            const res = await fetch('http://localhost:8000/api/getallposts');
+            const res = await fetch(join_path(server_v2_uri, 'api/v2', 'getallposts'));
             const json = await res.json();
 
             setPosts(json);
