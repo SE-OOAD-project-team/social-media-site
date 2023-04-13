@@ -36,6 +36,20 @@ router.post('/edit_password', login_required, edit_password);
 router.get('/search/:string', search);
 
 router.use('/post', posts_router);
+router.post(
+	'/upload_photo',
+	login_required,
+	multer_upload.single('photo'),
+	async (req, res) => {
+		if (!req.file) {
+			res.send('File not found.');
+			return;
+		}
+		console.log(req.file);
+
+		res.status(200).json({ filename: req.file.filename });
+	}
+);
 router.use('/getallposts', recom_routes);
 
 router.get('/profile/:username', get_profile);

@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faComment, faXmark, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import Comment from "./Comment";
 import axios from "axios";
+import { join_path } from "../../api/api";
+import { server_uri, server_v2_uri } from "../..";
 
 function ViewPost({setViewFullPost, viewFullPostId}) {
     const sample = {
@@ -39,7 +41,7 @@ function ViewPost({setViewFullPost, viewFullPostId}) {
 
     useEffect(() => {
         (async () => {
-            const res = await fetch(`http://localhost:8000/api/post/get/${viewFullPostId}`);
+            const res = await fetch(join_path(server_v2_uri, `api/v2/post/get/${viewFullPostId}`));
             const json = await res.json();
             // console.log(json)
             setPost(json);
