@@ -29,7 +29,6 @@ function ViewPostSmall({ post_id, seed, setViewFullPost, setViewFullPostId }) {
     const likePost = async(e) => {
         if(postLiked === false){
             const user = localStorage.getItem("username");
-            const post_id = post._id;
             const obj = {
                 user: user,
                 post_id: post_id,

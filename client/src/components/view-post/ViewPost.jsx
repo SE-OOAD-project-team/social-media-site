@@ -7,41 +7,13 @@ import axios from "axios";
 import { join_path } from "../../api/api";
 import { server_uri, server_v2_uri } from "../..";
 
-function ViewPost({setViewFullPost, viewFullPostId}) {
-    const sample = {
-        post_id: "ABC123",
-        user_details: {
-            name: "profileName",
-            profile_pic: "https://picsum.photos/30/30?random=2",
-        },
-        desc: "post description goes here",
-        pic: "https://picsum.photos/300/450?random=3",
-        comments: [
-            {
-                name: "user1",
-                profile_pic: "/temp/wallpaper.jpg",
-                comment: "Well done. Crazy."
-            },
-            {
-                name: "user2",
-                profile_pic: "https://picsum.photos/30/30",
-                comment: "Well done. jfdnsfklds jkfndsknfa aasaa."
-            },
-            {
-                name: "user3",
-                profile_pic: "https://picsum.photos/30/30",
-                comment: "Well done. jfdnsfklds jkfndskn fasasadasd."
-            },
-        ],
-        likes_count: 233,
-        comments_count: 45,
-    };
+function ViewPost({setViewFullPost, viewFullPostId: postId}) {
     const [post, setPost] = useState(null);
     const [forceReload, setForceReload] = useState(false);
 
     useEffect(() => {
         (async () => {
-            const res = await fetch(join_path(server_v2_uri, `api/v2/post/get/${viewFullPostId}`));
+            const res = await fetch(join_path(server_v2_uri, `api/v2/post/get/${postId}`));
             const json = await res.json();
             // console.log(json)
             setPost(json);
@@ -62,7 +34,7 @@ function ViewPost({setViewFullPost, viewFullPostId}) {
         const comment = commentRef.current.value;
         const curr_user = localStorage.getItem("username");
         const comment_data = {
-            post_id: post._id,
+            post_id: postId,
             commented_user_name: curr_user,
             comment: comment,
         }
