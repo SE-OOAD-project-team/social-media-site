@@ -35,12 +35,13 @@ function ViewPost({setViewFullPost, viewFullPostId: postId}) {
         const curr_user = localStorage.getItem("username");
         const comment_data = {
             post_id: postId,
-            commented_user_name: curr_user,
+            username: curr_user,
             comment: comment,
         }
         // console.log(comment_data);
         try{
-            await axios.post("http://localhost:8000/api/postComment", comment_data)
+            // await axios.post("http://localhost:8000/api/postComment", comment_data)
+            await axios.post(join_path(server_v2_uri, "api/v2", "post/comments/add", postId), comment_data);
             setForceReload(!forceReload);
         }
         catch(err) {
