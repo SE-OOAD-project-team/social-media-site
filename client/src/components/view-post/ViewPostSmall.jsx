@@ -4,6 +4,8 @@ import './ViewPostSmall.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faComment } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
+import { join_path } from '../../api/api';
+import { server_uri, server_v2_uri } from '../..';
 
 function ViewPostSmall({ post_id, seed, setViewFullPost, setViewFullPostId }) {
     const [post, setPost] = useState(null);
@@ -11,7 +13,7 @@ function ViewPostSmall({ post_id, seed, setViewFullPost, setViewFullPostId }) {
 
     useEffect(() => {
         (async () => {
-            const res = await fetch(`http://localhost:8000/api/post/get/${post_id}`);
+            const res = await fetch(join_path(server_v2_uri, `/api/v2/post/get/${post_id}`));
             const json = await res.json();
 
             setPost(json);
