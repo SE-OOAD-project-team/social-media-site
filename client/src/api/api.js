@@ -1,4 +1,4 @@
-import { server_uri } from '../index.js';
+import { server_uri, server_v2_uri } from '../index.js';
 
 const join_path = (...args) =>
     args
@@ -93,8 +93,8 @@ const logout = () => {
 
 const get_profile = async (username) => {
     const uri = join_path(
-        server_uri,
-        '/api/profile',
+        server_v2_uri,
+        '/api/v2/profile',
         username
     );
     console.log(uri);
@@ -107,15 +107,17 @@ const get_profile = async (username) => {
 
     const res_json = await res.json();
 
-    if (res_json.status === 'Success') {
-        return res_json.data;
+    console.log(res_json);
+
+    if (res.status === 200) {
+        return res_json;
     } else {
-        throw new Error(res_json.reason);
+        throw new Error(res);
     }
 };
 
 const edit_profile = async (newProfile) => {
-    const uri = join_path(server_uri, '/api/profile');
+    const uri = join_path(server_v2_uri, '/api/v2/profile');
     console.log(uri);
     const res = await fetch(uri, {
         method: 'POST',
@@ -123,13 +125,13 @@ const edit_profile = async (newProfile) => {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
-        body: JSON.stringify(newProfile),
+        body: JSON.stringify({...newProfile, username: localStorage.getItem('username')}),
     });
 
     const res_json = await res.json();
 
-    if (res_json.status !== 'Success') {
-        throw new Error(res_json.reason);
+    if (res.status !== 200) {
+        throw new Error(res);
     }
 };
 
