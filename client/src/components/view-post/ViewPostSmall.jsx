@@ -28,13 +28,19 @@ function ViewPostSmall({ post_id, seed, setViewFullPost, setViewFullPostId }) {
 
     const likePost = async(e) => {
         if(postLiked === false){
-            const user = localStorage.getItem("username");
+            console.log("clicked like post")
+            const username = localStorage.getItem("username");
             const obj = {
-                user: user,
+                username: username,
                 post_id: post_id,
             };
+            const url = join_path(server_v2_uri, `/api/v2/post/inc-like`)
             try{
-                await axios.post("http://localhost:8000/api/incLike", obj)
+                const ret = await axios.post(url, obj);
+                if(ret.data.status === "Success")
+                    setPostLiked(true);
+                else
+                    console.error("Error: Liking a post - not working");
             }
             catch(err){
                 console.log(err);
@@ -42,7 +48,7 @@ function ViewPostSmall({ post_id, seed, setViewFullPost, setViewFullPostId }) {
             // .then(res => {console.log(res)})
             // .catch(err => { console.log(err)})
 
-            setPostLiked(true);
+            
         }
         setViewFullPost(false);
         e.preventDefault();
@@ -52,7 +58,7 @@ function ViewPostSmall({ post_id, seed, setViewFullPost, setViewFullPostId }) {
         post && (<div className="vp-small-container" onClick={postClicked} onDoubleClick={likePost}>
             <img
                 className="vp-small-img"
-                src={`http://localhost:8000/image/${post.pic}`}
+                src={join_path(server_v2_uri, `api/v2/image/${post.pic}`)}
             />
             <div className="vp-small-info-container">
                 <div className="vp-small-profile-container">
@@ -67,7 +73,7 @@ function ViewPostSmall({ post_id, seed, setViewFullPost, setViewFullPostId }) {
                     <div className="vp-small-like-container">
                         <FontAwesomeIcon
                             icon={faHeart}
-                            className="fa-icon-heart"
+                            className={postLiked ? "fa-icon-heart-liked" : "fa-icon-heart"}
                             onClick={likePost}
                         />
                         <p>{post.likes_count}</p>
