@@ -66,6 +66,16 @@
     margin: 0px 2px;
 }
 
+.fa-icon-heart-liked {
+    color: crimson;
+    margin: 0px 2px;
+    cursor: default;
+}
+
+.fa-icon-heart:hover {
+    color: red;
+}
+
 .fa-icon-comment {
     color: wheat;
     margin: 0px 2px;

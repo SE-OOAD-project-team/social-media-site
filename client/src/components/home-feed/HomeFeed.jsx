@@ -36,6 +36,7 @@ function HomeFeed() {
                 <div id="home-feed-post-container">
                     {posts.map((post_id) => (
                         <ViewPostSmall
+                            key={post_id}
                             post_id={post_id}
                             setViewFullPost={setViewFullPost}
                             setViewFullPostId={setViewFullPostId}

@@ -59,7 +59,7 @@ function ViewPost({setViewFullPost, viewFullPostId: postId}) {
                 <p className="view-post-user-name">{post.username}</p>
             </div>
             <div className="view-post-img-container">
-                <img className="view-post-pic" src={`http://localhost:8000/image/${post.pic}`} alt="post-pic" />
+                <img className="view-post-pic" src={join_path(server_v2_uri, `api/v2/image/${post.pic}`)} alt="post-pic" />
             </div>
             <p className="view-post-desc">{post.desc}</p>
             <div className="view-post-interactions-container">
@@ -77,7 +77,7 @@ function ViewPost({setViewFullPost, viewFullPostId: postId}) {
         <div className="view-post-comments-container">
             <p>Comments</p>
             <div className="vp-comments-posted-container">
-                {post.comments.map(item => <Comment data={item} />)}
+                {post.comments.map((item, index) => <Comment key={index} data={item} />)}
             </div>
             <div className="view-post-make-comment-container">
                 <input className="vp-comment-box" type="text" placeholder="Enter your comment here..." ref={commentRef} />

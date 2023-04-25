@@ -84,8 +84,9 @@ function CreatePost({ setCreatePost }) {
 		// console.log(imageFile)
 
 		try {
+			const upload_photo_url = join_path(server_v2_uri, 'api/v2/image/upload');
 			const res = await axios.post(
-				join_path(server_uri, 'api/upload_photo'),
+				upload_photo_url,
 				formData,
 				{
 					headers: {
@@ -96,7 +97,13 @@ function CreatePost({ setCreatePost }) {
 			// .then(res => {
 			//   console.log(res.data)
 			// })
-			console.log('Uploaded image', res.data);
+
+			if(res.data.filename === undefined || res.data.filename === null) {
+				console.error("Error: Failed to upload picture. Please try again later.");
+				return;
+			}
+
+			console.log('Uploaded image: ', res.data);
 
 			const post_res = await fetch(
 				join_path(server_v2_uri, 'api/v2/post/create'),
