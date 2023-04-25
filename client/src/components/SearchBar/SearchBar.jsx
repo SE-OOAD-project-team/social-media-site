@@ -5,7 +5,7 @@ import CloseIcon from '@mui/icons-material/Close';
 
 import { Link, useNavigate } from 'react-router-dom';
 
-import { server_uri } from '../../index.js';
+import { server_uri, server_v2_uri } from '../../index.js';
 import { join_path } from '../../api/api.js';
 
 function SearchBar({ placeholder }) {
@@ -16,17 +16,17 @@ function SearchBar({ placeholder }) {
         const searchWord = event.target.value;
         setWordEntered(searchWord);
 
-        const uri = join_path(server_uri, '/api/search/', searchWord);
+        const uri = join_path(server_v2_uri, '/api/v2/search/', searchWord);
         console.log(uri);
         const res = await fetch(uri);
 
         const res_json = await res.json();
         console.log(res_json);
 
-        if (res_json.status !== 'Success' || searchWord === '') {
+        if (res.status !== 200 || searchWord === '') {
             setFilteredData([]);
         } else {
-            setFilteredData(res_json.data);
+            setFilteredData(res_json);
         }
     };
 
