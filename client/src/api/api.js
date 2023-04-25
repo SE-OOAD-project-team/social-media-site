@@ -13,8 +13,9 @@ const join_path = (...args) =>
         .join('/');
 
 const login = async (username, password) => {
-    const uri = join_path(server_uri, '/api/login');
-    console.log(uri);
+    // const uri = join_path(server_uri, '/api/login');
+    const uri = join_path(server_v2_uri, `api/v2/login`);
+    // console.log(uri);
     const res = await fetch(uri, {
         method: 'POST',
         headers: {
@@ -28,7 +29,7 @@ const login = async (username, password) => {
 
     const res_json = await res.json();
 
-    console.log(res_json);
+    // console.log(res_json);
 
     if (res_json.status === 'Success') {
         window.localStorage.setItem('username', username);
@@ -39,16 +40,17 @@ const login = async (username, password) => {
 };
 
 const signup = async (username, password) => {
-    const uri = join_path(server_uri, '/api/signup');
-    console.log(uri);
+    // const uri = join_path(server_uri, '/api/signup');
+    const uri = join_path(server_v2_uri, `api/v2/signup`);
+    // console.log(uri);
     const res = await fetch(uri, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            username,
-            password,
+            username: username,
+            password: password,
         }),
     });
 
